@@ -1,0 +1,15 @@
+{
+  "name": "unpack-cli",
+  "version": "1.0.0",
+  "description": "CLI client for lib-unpack. Unpack is a bundleless bundler for JavaScript and Typescript that unpacks common.js modules into distinct ESmodules.",
+  "main": "index.js",
+  "author": "Adam Crockett",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "typescript": "^3.9.5"
+  },
+  "scripts": {
+    "build": "tsc -p ./src && nexe --input ./release/unpack-cli/src/unpack-cli.js --output ./release/unpack && rm -rf ./release/unpack-*"
+  }
+}

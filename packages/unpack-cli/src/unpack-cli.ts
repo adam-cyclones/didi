@@ -1,3 +1,5 @@
+import { transpileToESModule } from 'unpack-lib/src/lib-unpack';
+
 import {
   action,
   command,
@@ -17,11 +19,12 @@ import {
 @version('1.0.0')
 @description('A basic program')
 @usage('--help')
-export class Program {
-  @option('--env <env>')
-  env: string = null;
-
+export class UnpackCLIProgram {
   constructor() {}
+
+  @option('--env <env>')
+  env: string | null = null;
+
 
   run(@requiredArg('message') message) {
     console.log(`Message: ${message}`);
@@ -43,4 +46,4 @@ export class Program {
   }
 }
 
-const p = new Program();
+const p = new UnpackCLIProgram();
