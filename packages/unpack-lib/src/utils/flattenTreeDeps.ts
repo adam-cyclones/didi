@@ -1,4 +1,5 @@
 import {basename, resolve} from "path";
+import { isCoreModule } from './isCoreModule';
 
 export const flattenDepsTree = (roots, targetBasedir, outDir) => {
   return roots.reduce((acc, r) => {
@@ -11,22 +12,24 @@ export const flattenDepsTree = (roots, targetBasedir, outDir) => {
   }, [])
     // get only the info required
     .map(({
-            name,
-            basedir,
-            main
-          }) => ({
       name,
-      isCore: isCoreModule(name),
       basedir,
-      resolve: name === basename(targetBasedir) ?
-        require.resolve(resolve(process.cwd(), targetBasedir)) :
-        require.resolve(name, { paths: [resolve(process.cwd(), targetBasedir)] }),
+      main
+    }) => ({
+      basedir,
+      isCore: isCoreModule(name),
+      name,
       output: {
         dirname: resolve(outDir, name),
         basename: basename(name),
         filename: name === basename(targetBasedir) ?
           basename(main).replace('.js', '.mjs') :
           basename(require.resolve(name, { paths: [resolve(process.cwd(), targetBasedir)] })).replace('.js', '.mjs'),
-      }
-    }))
+      },
+      resolve: name === basename(targetBasedir) ?
+        require.resolve(resolve(process.cwd(), targetBasedir)) :
+        require.resolve(name, { paths: [resolve(process.cwd(), targetBasedir)]
+      }),
+    })
+  )
 }
