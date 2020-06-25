@@ -1,5 +1,5 @@
-import { transpileToESModule } from 'unpack-lib/src/lib-unpack';
-
+import { transpileToESModule } from '../../unpack-lib/src/lib-unpack';
+import { resolve } from 'path';
 import {
   action,
   command,
@@ -17,7 +17,7 @@ import {
 
 @program()
 @version('1.0.0')
-@description('A basic program')
+@description('Convert a project from common JS to ESmodules, with included bundler-like / task runner behaviour.')
 @usage('--help')
 export class UnpackCLIProgram {
   constructor() {}
@@ -25,23 +25,22 @@ export class UnpackCLIProgram {
   @option('--env <env>')
   env: string | null = null;
 
-
-  run(@requiredArg('message') message) {
-    console.log(`Message: ${message}`);
-  }
-
   @command()
-  @commandOption('--reverse')
-  print(
-    this: Command,
-    @requiredArg('first') first,
-    @optionalArg('last') last,
-    @variadicArg('credentials') credentials
-  ) {
-    if (this.reverse) {
-      console.log(`Name: ${last}, ${first}, ${credentials.join(', ')}`);
+  @commandOption('--profile', `<development | production> production produces an optimized build. (defaults: development)`)
+  async run(this: Command, @requiredArg('transpileToESModule') path: string) {
+    if (path) {
+      const status = await transpileToESModule({
+        profile: 'development',
+        options: {
+          compilerOptions: {}
+        },
+        cjmTergetBaseDir: resolve(process.cwd(), path)
+      });
+      if (status === 0) {
+        console.log('Process ended with exit code 0.')
+      }
     } else {
-      console.log(`Name: ${first} ${last}, ${credentials.join(', ')}`);
+      console.log('The "path" argument must be of type string. Received no input.')
     }
   }
 }

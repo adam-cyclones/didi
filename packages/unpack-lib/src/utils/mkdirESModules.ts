@@ -9,6 +9,6 @@ export const mkdirESModules = async (path) => {
   try {
     ;(await lstat(path)).isDirectory();
   } catch (e) {
-    await mkdirp(path);
+    await mkdirp.default(path);
   }
 }
