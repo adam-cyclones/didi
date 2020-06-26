@@ -14,4 +14,15 @@ export interface IUnpackInterfaceArgs {
   }
 }
 
+export interface ITemplateHTMLIndexArgs {
+  title: string;
+  description: string;
+  lang: string;
+  polyfillImportMap: boolean;
+  noScriptMessage: string;
+  importMapUrl: string;
+  scriptModuleUrl: string;
+  polyFillScriptUrl: string;
+}
+
 export type ErrorCode = number;

@@ -1,5 +1,11 @@
 const coreLibs = require('repl')._builtinLibs;
+const extraBlacklist = [
+  'util'
+];
 
 export const isCoreModule = (name: string) => {
-  return coreLibs.includes(name);
+  return [
+    ...extraBlacklist,
+    ...coreLibs
+  ].includes(name);
 }
