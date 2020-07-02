@@ -5,10 +5,11 @@ const {
   writeFile
 } = promises;
 
-export const writeImportMap = async (path: string, content: string = '{}'): Promise<void> => {
+export const writeImportMap = async (path: string, content: string = '{}'): Promise<string> => {
   await writeFile(
     resolve(path, 'unpack.importmap'),
     content,
     'utf-8'
   );
+  return content;
 }
