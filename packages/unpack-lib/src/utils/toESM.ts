@@ -9,7 +9,6 @@ const {
 export const tscESM = async (path, target) => {
   let tscResult;
   const content = await readFile(path, 'utf8');
-  console.log('to parse', path)
   try {
     tscResult = transpileModule(content, {
       transformers: cjsToEsm(),
