@@ -1,4 +1,5 @@
 import { transpileToESModule } from '../../unpack-lib/src/lib-unpack';
+import { devServer } from '../../unpack-devserver/src/unpack-devserver';
 import { resolve } from 'path';
 import {
   action,
@@ -27,15 +28,40 @@ export class UnpackCLIProgram {
 
   @command()
   @commandOption('--profile', `<development | production> production produces an optimized build. (defaults: development)`)
-  async run(this: Command, @requiredArg('transpileToESModule') path: string) {
+  @commandOption('--polyfillImportMap', `Until Import Maps stabilize`)
+  async run(
+    this: Command,
+    // Required
+    @requiredArg('transpileToESModule') path: string,
+    // Optional
+    @optionalArg('polyfillImportMap') polyfillImportMap: boolean
+  ) {
+    // Defaults
+    if (!polyfillImportMap) {
+      polyfillImportMap = true;
+    }
+
     if (path) {
+      const cjmTergetBaseDir: string = resolve(process.cwd(), path);
       const status = await transpileToESModule({
         profile: 'development',
         options: {
-          compilerOptions: {}
+          compilerOptions: {},
+          polyfillImportMap: polyfillImportMap
         },
-        cjmTergetBaseDir: resolve(process.cwd(), path)
+        cjmTergetBaseDir
       });
+
+      await devServer({
+        verbose: true,
+        root: resolve(cjmTergetBaseDir, 'target', 'es2015', 'debug'),
+        host: '127.0.0.1',
+        index: 'index.html',
+        port: 8086,
+      });
+
+      console.log('http://localhost:8086');
+
       if (status === 0) {
         console.log('Process ended with exit code 0.')
       }
