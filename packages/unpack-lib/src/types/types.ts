@@ -10,7 +10,9 @@ export interface IUnpackInterfaceArgs {
   cjmTergetBaseDir: string;
   profile: 'development' | 'production'
   options: {
-    compilerOptions: UnpackCompilerOptions
+    compilerOptions: UnpackCompilerOptions,
+    polyfillImportMap: boolean,
+    importMapJson?: string
   }
 }
 
@@ -21,6 +23,7 @@ export interface ITemplateHTMLIndexArgs {
   polyfillImportMap: boolean;
   noScriptMessage: string;
   importMapUrl: string;
+  importMapInlineContent?: string;
   scriptModuleUrl: string;
   polyFillScriptUrl: string;
 }
