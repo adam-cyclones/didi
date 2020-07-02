@@ -9,7 +9,6 @@ const {
 export const writeModuleEntry = async (
   target
 ): Promise<string> => {
-  console.log('path to write', target.output.main)
   await writeFile(
     target.output.main,
     await tscESM(target.main, {}),
