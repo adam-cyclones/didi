@@ -1,4 +1,5 @@
 import {ITemplateHTMLIndexArgs} from "../types/types";
+import { unpackGlue } from './unpack-glue';
 
 const NOTHING = '';
 
@@ -9,6 +10,7 @@ export const generateHtmlIndex = async ({
   polyfillImportMap,
   noScriptMessage,
   importMapUrl,
+  importMapInlineContent,
   scriptModuleUrl,
   polyFillScriptUrl
 }: ITemplateHTMLIndexArgs) => {
@@ -24,9 +26,20 @@ export const generateHtmlIndex = async ({
   <meta name="author" content="${title}">
   <link rel="stylesheet" href="css/styles.css?v=1.0">
   
-  ${polyfillImportMap ? `<script type="text/javascript" src="${polyFillScriptUrl}"></script>` : NOTHING}
-  <script type="importmap" src="${importMapUrl}"></script>
-  <script type="module" src="${scriptModuleUrl}"></script>
+  ${polyfillImportMap ? `<script type="text/javascript" src="${polyFillScriptUrl}" defer></script>` : NOTHING}
+  ${importMapInlineContent && polyfillImportMap ? 
+    `<script type="importmap-shim" >${importMapInlineContent}</script>` : 
+    `<script type="importmap" src="${importMapUrl}"></script>` 
+  }
+  ${unpackGlue()}  
+  ${importMapInlineContent && polyfillImportMap ?
+    `<script type="module-shim">
+    import "${scriptModuleUrl}";
+    console.log("ran")
+    </script>` :
+    `<script type="module" src="${scriptModuleUrl}"></script>`
+  }
+  
 </head>
 
 <body>
