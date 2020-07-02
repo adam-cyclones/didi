@@ -4,6 +4,8 @@ A bundleless bundler for JavaScript and Typescript which unpacks common.js modul
 ### TODO:
 - setup this repo for contribution
 - create some issues
+- addreess all What doesnt work
+- Make a cool video, (can do this now as the thing works enough to demonstrate the concept)
 
 ### How it works:
 - TSC successfully converts all common.js to ESmodule format, js and ts should be supported but not tested both - just javascript.
