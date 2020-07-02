@@ -4,12 +4,13 @@ import { UnpackCompilerPanic } from "./utils/errors/UnpackCompilerPanic";
 import { isCoreModule } from "./utils/isCoreModule";
 import { mkdirESModules } from "./utils/mkdirESModules";
 import { removeCore } from "./utils/removeCoreModules";
-import { resolve, basename } from 'path';
+import { resolve, basename, sep } from 'path';
 import { tscESM } from './utils/toESM';
 import { writeESModule } from "./utils/writeESModule";
 import { writeImportMap } from "./utils/writeImportMap";
 import { writeIndexHTML } from "./utils/writeIndexHTML";
 import { writeModuleEntry } from "./utils/writeModuleEntry";
+import { shimLoaderWebruntime } from "./glue/shim-loader-webruntime";
 
 const sortObject = (obj: object) => {
     const ordered = {};
@@ -85,10 +86,19 @@ export const transpileToESModule = async ({
             };
 
             let modIndexFilename;
+            const modIndexImportAlias = '_';
+            const firstSlashExp = new RegExp(`\\${sep}(.+)`);
+
             for (const target of moduleList) {
+                // from the root of my node_modules/<module_name>/../main what is main?
+                const relativeModuleMainFilename = target.main
+                  .replace(`${cjmTergetBaseDir}${sep}node_modules${sep}`, '')
+                  .split(firstSlashExp)[1];
+
                 if (target.isUnpackTarget) {
                     target.output.main = resolve(OUT_ROOT, target.output.filename);
                     modIndexFilename = await writeModuleEntry(target);
+                    importMap.imports[modIndexImportAlias] = `/${target.output.filename}`;
                 } else {
                     const esmContent = await tscESM(target.main, target);
                     if (esmContent) {
@@ -97,19 +107,29 @@ export const transpileToESModule = async ({
                         // Unpack didnt catch this error
                         throw new UnpackCompilerPanic('Received no input to transpile.');
                     }
+
+                    console.log(target.main.replace(`${cjmTergetBaseDir}${sep}node_modules${sep}`, '').split(firstSlashExp)[1])
+                    // import map record
+                    importMap.imports[`${target.name}`] = `/${OUT_DIR_NAME}/${target.name}/${target.output.version}/${relativeModuleMainFilename.replace('.j','.mj')}`;
                 }
-                // an import map record
-                importMap.imports[`${target.name}@${target.output.version}`] = `/${OUT_DIR_NAME}/${target.name}/${target.output.version}/${target.output.filename}`;
             }
 
             // Sort
             importMap.imports = sortObject(importMap.imports);
             importMap.scopes = sortObject(importMap.scopes);
 
+            const wroteImportMap = await writeImportMap(OUT_ROOT, JSON.stringify(importMap, null, 4));
             await writeIndexHTML(OUT_ROOT, {
-                scriptModuleUrl: modIndexFilename
+                scriptModuleUrl: modIndexImportAlias,
+                polyFillScriptUrl: 'es-module-shims.min.js',
+                // If shimmed, we need to inline the import map
+                importMapInlineContent: wroteImportMap
             });
-            await writeImportMap(OUT_ROOT, JSON.stringify(importMap, null, 4));
+            await shimLoaderWebruntime({
+                OUT_DIR: OUT_ROOT,
+                polyfillImportMap: options.polyfillImportMap,
+                polyFillScriptUrl: 'es-module-shims.min.js'
+            });
             // tree shake via runtime in headless browser
 
             end();
