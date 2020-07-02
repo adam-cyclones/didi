@@ -10,6 +10,6 @@
     "typescript": "^3.9.5"
   },
   "scripts": {
-    "build": "tsc -p ./src && nexe --input ./release/unpack-cli/src/unpack-cli.js --output ./release/unpack && rm -rf ./release/unpack-*"
+    "build": "tsc -p ./src && nexe --input ./release/unpack-cli-client/src/unpack-cli.js --output ./release/unpack && rm -rf ./release/unpack-*"
   }
 }

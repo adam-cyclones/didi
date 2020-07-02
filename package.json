@@ -4,13 +4,18 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@types/koa": "^2.11.3",
     "@types/node": "^14.0.13",
     "@wessberg/cjs-to-esm-transformer": "^0.0.19",
     "commander-ts": "^0.1.5",
     "mkdirp": "^1.0.4",
+    "nexe": "^3.3.3",
     "reflect-metadata": "^0.1.13",
     "resolve-tree": "^0.1.14",
     "ts-node": "^8.10.2",
-    "typescript": "^3.9.5"
+    "typescript": "^3.9.5",
+    "koa": "^2.13.0",
+    "mime-types": "^2.1.27",
+    "es-module-shims": "^0.4.7"
   }
 }

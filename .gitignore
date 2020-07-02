@@ -109,4 +109,5 @@ dist
 # unpack developer
 target
 example-project
-packages/unpack-cli/release
+packages/unpack-cli-client/release
+packages/unpack-devserver/release
