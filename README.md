@@ -33,11 +33,15 @@ There is a growing list or tasks as didi heads for 1.0.0. Team didi:
 ### Experimental ahoy
 We are very excited to see you again, didi is still experimental and functional, PR's welcome!
 
+### Docs
+Coming soon.
+
 ### Community action 
 We want to build a collaborative open source community for didi, here are the actions the community decided so far.
 - [Vote: choose the name for didi, (formally unpack)](https://dev.to/adam_cyclones/name-this-software-opinion-needed-40m8)
 - [Vote: choose the logo for didi](https://dev.to/adam_cyclones/didi-help-me-choose-a-logo-3mo4)
 - [Chat with Deno - Can we be dinosaurs too?](https://github.com/denoland/deno/issues/6625)
 
-### Other
+#### Meta
 Logo by Adam Crockett
+दीदी - didi means sister, we are sister a too deno in the sense that we share similar goals, remove CommonJs packages and (for us, CommonJs bundles) from the equation and make packeges widely available in a "Webby" way that conforms to EcmaScript standards.
