@@ -106,8 +106,8 @@ dist
 # IDE
 .idea
 
-# unpack developer
+# didi developer
 target
 example-project
-packages/unpack-cli-client/release
-packages/unpack-devserver/release
+packages/didi-cli-client/release
+packages/didi-devserver/release

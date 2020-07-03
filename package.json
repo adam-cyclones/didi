@@ -1,5 +1,5 @@
 {
-  "name": "unpack",
+  "name": "didi",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -16,6 +16,7 @@
     "typescript": "^3.9.5",
     "koa": "^2.13.0",
     "mime-types": "^2.1.27",
-    "es-module-shims": "^0.4.7"
+    "es-module-shims": "^0.4.7",
+    "xstate": "^4.11.0"
   }
 }
