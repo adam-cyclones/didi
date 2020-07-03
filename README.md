@@ -1,32 +1,25 @@
 # didi
-A bundleless bundler for JavaScript and Typescript which transpiles common.js modules into distinct ESmodules.
+A transpiler for JavaScript and Typescript, unpacking CommonJS modules into distinct ES Modules.
 
-
-## Who uses Didi?
-Frontend developers and Deno developers.
+## Who uses didi?
+TLDR; Both frontend developers and deno developers might find didi useful.
 
 ### TODO:
-- setup this repo for contribution
-- create some issues
-- addreess all 'What doesnt work'
-- Make a cool video, (can do this now as the thing works enough to demonstrate the concept)
-- docs and website?
-- Branding for Unpack!
+There is a growing list or tasks as didi heads for 1.0.0. Team didi:
+- Adam Crockett
+- You?
+
+We need your help, lets break away from bundlers, support didi.
 
 ### How it works:
-- TSC successfully converts all common.js to ESmodule format, js and ts should be supported but not tested both - just JavaScript.
-- A boilerplat project is output based on your input.
-- minimal gluecode is emited but needed for browsers that dont support import maps, the positive is that ESM is then supported in browsers that are to old to support this, that includes dynamic import calls!
-- A devserver is provided to test your sources.
-- a devbrowser (headless browser). is used to prune all deps that where not actually used during the build step, a cache will be kept.
-- Everything should just work from then on.
-
-### What doesnt work:
-- This is still very WIP we have one or two issues to address.
-- Multiple versions of packages should be worked out and added to the scopes section of the import map, none of this works yet.
-- The config client doesnt work yet.
-- CDN imports should be downloaded just like Deno and cached, but this isnt a thing yet.
-- CSS imports and others specified by the new importmap specification can work but dont yet.
+- You can use the CLI to run didi.
+- didi ships with an embedded custom TypeScript compiler.
+- When successful, TSC converts all found JavaScript and Typescript in CommonJS modules to distinct ES Modules under a single `es_modules` directory.
+- A complete starter project for the browser can be generated or for deno just the `es_modules` directory.
+- didi strives to generate minimal glue-code but as of today browsers that don't support import-maps will need the es_modules_polyfill (default), The positive side effect is that didi enables support for ES Modules in aging browsers, that includes dynamic import calls!
+- A dev-server is provided to test your sources during build, then finally serve a development environment.
+- a dev-browser (headless browser). is used to prune all deps that where not actually used during the build step, a cache will be kept afterwards, keeping build times down.
+- Everything should just work from then on. - but if it doesn't, PR's and issues welcome.
 
 ### But I want it to work?
 Very excited to see you, PR's welcome!
