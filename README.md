@@ -1,7 +1,7 @@
 # didi
 A bundleless bundler for JavaScript and Typescript which unpacks common.js modules into distinct ESmodules.
 
-###Who can use Didi?
+## Who uses Didi?
 Frontend developers and Deno developers.
 
 ### TODO:
