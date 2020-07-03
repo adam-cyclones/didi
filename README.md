@@ -43,5 +43,5 @@ We want to build a collaborative open source community for didi, here are the ac
 - [Chat with Deno - Can we be dinosaurs too?](https://github.com/denoland/deno/issues/6625)
 
 #### Meta
-Logo by Adam Crockett
-दीदी - didi means sister, we are sister a too deno in the sense that we share similar goals, remove CommonJs packages and (for us, CommonJs bundles) from the equation and make packeges widely available in a "Webby" way that conforms to EcmaScript standards.
+- Logo by Adam Crockett
+- दीदी - didi means sister, we are sister a too deno in the sense that we share similar goals, remove CommonJs packages and (for us, CommonJs bundles) from the equation and make packeges widely available in a "Webby" way that conforms to EcmaScript standards.
