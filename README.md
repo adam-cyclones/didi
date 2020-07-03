@@ -1,6 +1,5 @@
 <!-- PROJECT LOGO -->
-<br />
-<span style="text-align: center;">
+<p align="center">
   <a href="https://github.com/adam-cyclones/didi">
     <img src="docs/assets/didi-logo.png" alt="didi the dino is a pterodactyl logo" width="120" height="120">
   </a>
@@ -10,7 +9,7 @@
   <p align="center">
     A transpiler for JavaScript and Typescript, unpacking CommonJS modules into distinct ES Modules.
   </p>
-</span>
+</p>
 
 ## Who uses didi?
 TLDR; Both frontend developers and deno developers might find didi useful.
