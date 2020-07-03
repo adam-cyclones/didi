@@ -39,4 +39,5 @@ We want to build a collaborative open source community for didi, here are the ac
 - [Vote: choose the logo for didi](https://dev.to/adam_cyclones/didi-help-me-choose-a-logo-3mo4)
 - [Chat with Deno - Can we be dinosaurs too?](https://github.com/denoland/deno/issues/6625)
 
-Logo by Adam (me) Crockett
+### Other
+Logo by Adam Crockett
