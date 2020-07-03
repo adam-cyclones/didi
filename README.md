@@ -1,13 +1,24 @@
-# didi
-A transpiler for JavaScript and Typescript, unpacking CommonJS modules into distinct ES Modules.
+<!-- PROJECT LOGO -->
+<br />
+<span align="center">
+  <a href="https://github.com/adam-cyclones/didi">
+    <img src="docs/assets/didi-logo.png" alt="didi the dino is a pterodactyl logo" width="80" height="80">
+  </a>
+
+  <h3 align="center">didi</h3>
+
+  <p align="center">
+    A transpiler for JavaScript and Typescript, unpacking CommonJS modules into distinct ES Modules.
+  </p>
+</span>
 
 ## Who uses didi?
 TLDR; Both frontend developers and deno developers might find didi useful.
 
-### TODO:
+### Want to help build the future of the web?
 There is a growing list or tasks as didi heads for 1.0.0. Team didi:
-- Adam Crockett
-- You?
+- Adam Crockett (nice to meet you!)
+- Do you want to join team didi?
 
 We need your help, lets break away from bundlers, support didi.
 
