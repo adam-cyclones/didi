@@ -34,3 +34,9 @@ We need your help, lets break away from bundlers, support didi.
 
 ### But I want it to work?
 Very excited to see you, PR's welcome!
+
+### Community action 
+We want to build a collaborative open source community for didi, here are the actions the community decided.
+- [Vote: choose the name for didi, (formally unpack)](https://dev.to/adam_cyclones/name-this-software-opinion-needed-40m8)
+- [Vote: choose the logo for didi](https://dev.to/adam_cyclones/didi-help-me-choose-a-logo-3mo4)
+- [Chat with Deno - Can we be dinosaurs too?](https://github.com/denoland/deno/issues/6625)
