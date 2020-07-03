@@ -1,8 +1,8 @@
 <!-- PROJECT LOGO -->
 <br />
-<span align="center">
+<span style="text-align: center;">
   <a href="https://github.com/adam-cyclones/didi">
-    <img src="docs/assets/didi-logo.png" alt="didi the dino is a pterodactyl logo" width="80" height="80">
+    <img src="docs/assets/didi-logo.png" alt="didi the dino is a pterodactyl logo" width="120" height="120">
   </a>
 
   <h3 align="center">didi</h3>
