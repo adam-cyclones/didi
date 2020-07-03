@@ -1,0 +1,15 @@
+{
+  "name": "didi-devserver",
+  "version": "1.0.0",
+  "description": "A tiny devserver used for development and internally",
+  "author": "Adam Crockett",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "minimist": "^1.2.5",
+    "koa": "^2.13.0"
+  },
+  "scripts": {
+    "build": "../../node_modules/typescript/bin/tsc -p ./src && node ../../node_modules/nexe/index.js --input ./release/didi-devserver/src/didi-devserver.js --output ./release/run-didi-devserver && rm -rf ./release/didi-*"
+  }
+}

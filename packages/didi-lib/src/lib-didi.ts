@@ -1,6 +1,6 @@
 import resolveTree = require('resolve-tree');
-import { ErrorCode, IUnpackInterfaceArgs } from './types/types';
-import { UnpackCompilerPanic } from "./utils/errors/UnpackCompilerPanic";
+import { ErrorCode, IDidiInterfaceArgs } from './types/types';
+import { DidiCompilerPanic } from "./utils/errors/DidiCompilerPanic";
 import { isCoreModule } from "./utils/isCoreModule";
 import { mkdirESModules } from "./utils/mkdirESModules";
 import { removeCore } from "./utils/removeCoreModules";
@@ -10,21 +10,19 @@ import { writeESModule } from "./utils/writeESModule";
 import { writeImportMap } from "./utils/writeImportMap";
 import { writeIndexHTML } from "./utils/writeIndexHTML";
 import { writeModuleEntry } from "./utils/writeModuleEntry";
+import { alphaSortObject } from "./utils/alphaSortObject";
 import { shimLoaderWebruntime } from "./glue/shim-loader-webruntime";
 
-const sortObject = (obj: object) => {
-    const ordered = {};
-    Object.keys(obj).sort().forEach((key) => {
-        ordered[key] = obj[key];
-    });
-    return ordered;
-};
+
+import { Machine } from 'xstate';
+import { discoverDependenciesService } from './services/discoverDependciesActor';
+
 
 export const transpileToESModule = async ({
   cjmTergetBaseDir,
   profile,
   options
-}: IUnpackInterfaceArgs): Promise<ErrorCode> => {
+}: IDidiInterfaceArgs): Promise<ErrorCode> => {
     process.chdir(cjmTergetBaseDir);
 
     // TODO: clarify
@@ -38,6 +36,94 @@ export const transpileToESModule = async ({
       'dependencies'
     ];
 
+
+    interface ILibDidiSchema {
+        states: {
+            discoveringDependcies: {
+                states: {
+                    searching: any;
+                }
+            };
+            writing: {
+                states: {
+                    ESModule: {};
+                    ImportMap: {};
+                    IndexHtml: {};
+                    ModuleIndex: {};
+                    ESModuleShim: {};
+                }
+            };
+            result: {
+
+            };
+        };
+    }
+
+    // The context (extended state) of the machine
+    interface ILibDidiContext {
+        importMap: object;
+    }
+
+
+
+    Machine<ILibDidiContext, ILibDidiSchema>({
+        id: 'lib-didi-build-steps',
+        initial: 'discoveringDependcies',
+        context: {
+            importMap: {},
+        },
+        states: {
+            'discoveringDependcies': {
+                states: {
+                    'searching': {
+                        // @ts-ignore
+                        invoke: {
+                            id: 'discoverDependcies',
+                            src: discoverDependenciesService(),
+                            onDone:{
+                                target: '#write.ESModule'
+                            },
+                            onError: {
+                                target: '#result.fail'
+                            },
+                        },
+                    },
+                },
+            },
+            'writing': {
+                id: 'write',
+                states: {
+                    'ESModule': {
+
+                    },
+                    'ImportMap': {
+
+                    },
+                    'IndexHtml': {
+
+                    },
+                    'ModuleIndex': {
+
+                    },
+                    'ESModuleShim': {
+                        type: 'parallel'
+                    },
+                },
+            },
+            'result': {
+                id:'result',
+                states: {
+                    'fail': {
+
+                    },
+                    'success': {
+
+                    }
+                }
+            }
+        }
+    });
+
     const resolveTreeOpts = {
         basedir: cjmTergetBaseDir,
         lookups
@@ -46,7 +132,7 @@ export const transpileToESModule = async ({
     await new Promise((end) => {
         resolveTree.packages([cjmTergetBaseDir], resolveTreeOpts, async (err, roots) => {
             if (err) {
-                throw new UnpackCompilerPanic(err)
+                throw new DidiCompilerPanic(err)
             }
 
             const flat = resolveTree.flatten(roots);
@@ -54,7 +140,7 @@ export const transpileToESModule = async ({
             const withOutput = flat.map(dependency => {
                 return {
                     name: dependency.name,
-                    isUnpackTarget: dependency.root === cjmTergetBaseDir,
+                    isDidiTarget: dependency.root === cjmTergetBaseDir,
                     main: require.resolve(dependency.root),
                     isCore: isCoreModule(dependency.name),
                     output: {
@@ -95,7 +181,7 @@ export const transpileToESModule = async ({
                   .replace(`${cjmTergetBaseDir}${sep}node_modules${sep}`, '')
                   .split(firstSlashExp)[1];
 
-                if (target.isUnpackTarget) {
+                if (target.isDidiTarget) {
                     target.output.main = resolve(OUT_ROOT, target.output.filename);
                     modIndexFilename = await writeModuleEntry(target);
                     importMap.imports[modIndexImportAlias] = `/${target.output.filename}`;
@@ -104,8 +190,8 @@ export const transpileToESModule = async ({
                     if (esmContent) {
                         await writeESModule(target.output.dir, target.output.filename, esmContent);
                     } else if (!target.skipped) {
-                        // Unpack didnt catch this error
-                        throw new UnpackCompilerPanic('Received no input to transpile.');
+                        // Didi didnt catch this error
+                        throw new DidiCompilerPanic('Received no input to transpile.');
                     }
 
                     console.log(target.main.replace(`${cjmTergetBaseDir}${sep}node_modules${sep}`, '').split(firstSlashExp)[1])
@@ -115,8 +201,8 @@ export const transpileToESModule = async ({
             }
 
             // Sort
-            importMap.imports = sortObject(importMap.imports);
-            importMap.scopes = sortObject(importMap.scopes);
+            importMap.imports = alphaSortObject(importMap.imports);
+            importMap.scopes = alphaSortObject(importMap.scopes);
 
             const wroteImportMap = await writeImportMap(OUT_ROOT, JSON.stringify(importMap, null, 4));
             await writeIndexHTML(OUT_ROOT, {

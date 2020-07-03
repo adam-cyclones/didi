@@ -11,12 +11,12 @@ export const writeIndexHTML = async (path: string, options: Partial<ITemplateHTM
   await writeFile(
     resolve(path, 'index.html'),
     await generateHtmlIndex({
-      title: 'Unpack, great success!',
-      description: 'An unpack managed project',
+      title: 'Didi *roars* with joy!',
+      description: 'A didi managed project',
       lang: 'en',
       polyfillImportMap: true,
-      noScriptMessage: 'You need to enable JavaScript to use this application.',
-      importMapUrl: 'unpack.importmap',
+      noScriptMessage: 'Sorry, You must enable JavaScript to use this application.',
+      importMapUrl: 'didi.importmap',
       scriptModuleUrl: 'mod.js',
       polyFillScriptUrl: '',
       ...options

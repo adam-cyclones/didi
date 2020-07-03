@@ -1,16 +1,16 @@
 import ts = require("typescript");
 
-export type UnpackCompilerOptions = Omit<
+export type DidiCompilerOptions = Omit<
   ts.CreateProgramOptions['options'],
   'module' |
   'moduleResolution'
   >
 
-export interface IUnpackInterfaceArgs {
+export interface IDidiInterfaceArgs {
   cjmTergetBaseDir: string;
   profile: 'development' | 'production'
   options: {
-    compilerOptions: UnpackCompilerOptions,
+    compilerOptions: DidiCompilerOptions,
     polyfillImportMap: boolean,
     importMapJson?: string
   }

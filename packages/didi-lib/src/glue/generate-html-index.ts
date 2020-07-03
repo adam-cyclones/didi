@@ -1,5 +1,5 @@
 import {ITemplateHTMLIndexArgs} from "../types/types";
-import { unpackGlue } from './unpack-glue';
+import { didiGlue } from './didi-glue';
 
 const NOTHING = '';
 
@@ -31,7 +31,7 @@ export const generateHtmlIndex = async ({
     `<script type="importmap-shim" >${importMapInlineContent}</script>` : 
     `<script type="importmap" src="${importMapUrl}"></script>` 
   }
-  ${unpackGlue()}  
+  ${didiGlue()}  
   ${importMapInlineContent && polyfillImportMap ?
     `<script type="module-shim">
     import "${scriptModuleUrl}";
@@ -46,7 +46,7 @@ export const generateHtmlIndex = async ({
   <noscript>${noScriptMessage}</noscript>
   
   <!---
-    This is a starter template, thank you for using Unpack
+    This is a starter template, thank you for using Didi
   -->
 </body>
 </html>

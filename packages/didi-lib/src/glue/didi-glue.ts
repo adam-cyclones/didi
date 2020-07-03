@@ -1,6 +1,6 @@
-export const unpackGlue = () => `
+export const didiGlue = () => `
 <script type="text/javascript">
-  // Unpack gluecode
+  // didi gluecode
   window.process = undefined;
   
   let registry = [];

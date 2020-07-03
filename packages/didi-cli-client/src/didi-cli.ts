@@ -1,5 +1,5 @@
-import { transpileToESModule } from '../../unpack-lib/src/lib-unpack';
-import { devServer } from '../../unpack-devserver/src/unpack-devserver';
+import { transpileToESModule } from '../../didi-lib/src/lib-didi';
+import { devServer } from '../../didi-devserver/src/didi-devserver';
 import { resolve } from 'path';
 import {
   action,
@@ -20,7 +20,7 @@ import {
 @version('1.0.0')
 @description('Convert a project from common JS to ESmodules, with included bundler-like / task runner behaviour.')
 @usage('--help')
-export class UnpackCLIProgram {
+export class DidiCLIProgram {
   constructor() {}
 
   @option('--env <env>')
@@ -71,4 +71,4 @@ export class UnpackCLIProgram {
   }
 }
 
-const p = new UnpackCLIProgram();
+const p = new DidiCLIProgram();

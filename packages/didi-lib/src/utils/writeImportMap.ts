@@ -7,7 +7,7 @@ const {
 
 export const writeImportMap = async (path: string, content: string = '{}'): Promise<string> => {
   await writeFile(
-    resolve(path, 'unpack.importmap'),
+    resolve(path, 'didi.importmap'),
     content,
     'utf-8'
   );
