@@ -54,8 +54,14 @@ shipping. The plan is to create an npm and denoland package should be created to
 ## Usage
 Currently the only way to use didi is to build from source as per the above, you would then do something like this
 ```sh
-./packages/didi-cli-client/release/didi ~/path/to/project
+./packages/didi-cli-client/release/didi ~/path/to/example-project
 ```
+
+## What to expect
+The result should look a little like this:
+<div>
+    <img src="docs/screenshots/didi-out.png" alt="didi wrote some boilerplate, and ES Modules from CommonJS">
+</div>
 
 ### Docs
 Coming soon.
@@ -63,7 +69,7 @@ Coming soon.
 ## Community
 
 ### Want to help build the future of the web?
-There is a growing list or tasks as didi heads for 1.0.0. Team didi:
+There is a growing [list or tasks](https://github.com/adam-cyclones/didi/issues) as didi heads for 1.0.0. Team didi:
 - [Adam Crockett](https://dev.to/adam_cyclones)
     > "We need your help, lets break away from bundlers, support didi"
 - Do you want to join team didi or maybe leave us a star?
