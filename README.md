@@ -14,12 +14,6 @@
 ## Who uses didi?
 Both frontend developers and deno developers will find didi useful.
 
-### Want to help build the future of the web?
-There is a growing list or tasks as didi heads for 1.0.0. Team didi:
-- [Adam Crockett](https://dev.to/adam_cyclones)
-    > "We need your help, lets break away from bundlers, support didi"
-- Do you want to join team didi or maybe leave us a star?
-
 ### How it works:
 - You can use the CLI to run didi.
 - didi ships with an embedded custom TypeScript compiler.
@@ -65,6 +59,12 @@ Currently the only way to use didi is to build from source as per the above, you
 
 ### Docs
 Coming soon.
+
+### Want to help build the future of the web?
+There is a growing list or tasks as didi heads for 1.0.0. Team didi:
+- [Adam Crockett](https://dev.to/adam_cyclones)
+    > "We need your help, lets break away from bundlers, support didi"
+- Do you want to join team didi or maybe leave us a star?
 
 ### Community action 
 We want to build a collaborative open source community for didi, here are the actions the community decided so far.
