@@ -12,7 +12,7 @@
 </p>
 
 ## Who uses didi?
-Both frontend developers and deno developers will find didi useful.
+Frontend and deno developers will find didi useful.
 
 ### How it works:
 - You can use the CLI to run didi.
