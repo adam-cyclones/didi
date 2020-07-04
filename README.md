@@ -39,12 +39,9 @@ Every didi package has the same scripts to `build`, simply run `yarn build-all`
 Here are all the build commands if you wish you build just one package
 ```json
 {
-    "build-all": "yarn build-cli-client build-config-client build-devbrowser build-devserver build-lib",
+    "build-all": "yarn build-devserver && yarn build-cli-client",
     "build-cli-client": "yarn --cwd ./packages/didi-cli-client build",
-    "build-config-client": "yarn --cwd ./packages/didi-config-client build",
-    "build-devbrowser": "yarn --cwd ./packages/didi-devbrowser build",
-    "build-devserver": "yarn --cwd ./packages/didi-devserver build",
-    "build-lib": "yarn --cwd ./packages/didi-lib build"
+    "build-devserver": "yarn --cwd ./packages/didi-devserver build"
 }
 ```
 At the moment, `didi-cli-client` is the main way to interact with the software, You should start here, by building the cli
