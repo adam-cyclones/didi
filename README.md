@@ -63,6 +63,17 @@ The result should look a little like this:
     <img src="docs/screenshots/didi-out.png" alt="didi wrote some boilerplate, and ES Modules from CommonJS">
 </div>
 
+| File / Directory       |                                                                                                                     |
+|------------------------|---------------------------------------------------------------------------------------------------------------------|
+| target                 | didi output directory                                                                                               |
+| es2015                 | we target es2015 unless a new specification lands in the future                                                     |
+| debug / release        | debug is unoptimised and faster to build, release will optimise output for production                               |
+| es_modules             | This is where all your transpiled es_modules can be found, /package/{semver}/main.mjs                               |
+| index.mjs              | This will contain your project and imports based on the specified main of targeted projects package.json            |
+| index.html             | The starting point of a didi frontend project, didi writes some gluecode to allow a didi project to function        |
+| es-module-shims.min.js | Until importmaps are supported did uses this polyfill by default but it can be turned off for bleeding edge testing |
+| didi.importmap         | Used resolve your ES Modules with base specifiers and remain compatible with (ex) CommonJS (node resolution)        |
+
 ### Docs
 Coming soon.
 
