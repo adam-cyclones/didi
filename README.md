@@ -31,7 +31,37 @@ There is a growing list or tasks as didi heads for 1.0.0. Team didi:
 - Everything should just work from then on. - but if it doesn't, PR's and issues welcome.
 
 ### Experimental ahoy
-We are very excited to see you again, didi is still experimental and functional, PR's welcome!
+We are very excited to see you again, didi is still experimental but functional, PR's welcome!
+
+## Building for development
+To commit code to didi
+``` sh
+cd ../path/to/didi
+yarn install
+```
+didi is split into packages so that we can work on what we need to.
+Every didi package has the same scripts to `build`, simply run `yarn build-all`
+
+Here are all the build commands if you wish you build just one package
+```json
+{
+    "build-all": "yarn build-cli-client build-config-client build-devbrowser build-devserver build-lib",
+    "build-cli-client": "yarn --cwd ./packages/didi-cli-client build",
+    "build-config-client": "yarn --cwd ./packages/didi-config-client build",
+    "build-devbrowser": "yarn --cwd ./packages/didi-devbrowser build",
+    "build-devserver": "yarn --cwd ./packages/didi-devserver build",
+    "build-lib": "yarn --cwd ./packages/didi-lib build"
+}
+```
+At the moment, `didi-cli-client` is the main way to interact with the software, You should start here, by building the cli
+lib-didi will also be built and should result in a single binary under the `release` folder, this is the binary we will be
+shipping. The plan is to create an npm and denoland package should be created to distribute the binary as well.
+
+## Usage
+Currently the only way to use didi is to build from source as per the above, you would then do something like this
+```sh
+./packages/didi-cli-client/release/didi ~/path/to/project
+```
 
 ### Docs
 Coming soon.
