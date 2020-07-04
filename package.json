@@ -18,5 +18,12 @@
     "mime-types": "^2.1.27",
     "es-module-shims": "^0.4.7",
     "xstate": "^4.11.0"
-  }
+  },
+  "scripts": {
+    "publish-readme": "git add ./README.md && git add ./docs && git commit -m 'update readme' && git push",
+    "build-all": "yarn build-devserver && yarn build-cli-client",
+    "build-cli-client": "yarn --cwd ./packages/didi-cli-client build",
+    "build-devserver": "yarn --cwd ./packages/didi-devserver build"
+  },
+  "workspaces": ["workspace-a", "workspace-b"]
 }
