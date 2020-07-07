@@ -1,8 +1,8 @@
 import { transpileToESModule } from '../../didi-lib/src/lib-didi';
 import { devServer } from '../../didi-devserver/src/didi-devserver';
+import chalk from 'chalk';
 import { resolve } from 'path';
 import {
-  action,
   command,
   commandOption,
   description,
@@ -11,7 +11,6 @@ import {
   program,
   requiredArg,
   usage,
-  variadicArg,
   version,
   Command
 } from 'commander-ts';
@@ -27,7 +26,8 @@ export class DidiCLIProgram {
   env: string | null = null;
 
   @command()
-  @commandOption('--profile', `<development | production> production produces an optimized build. (defaults: development)`)
+  @commandOption('--profile', `<!--suppress HtmlUnknownTag -->
+<development | production> production produces an optimized build. (defaults: development)`)
   @commandOption('--polyfillImportMap', `Until Import Maps stabilize`)
   async run(
     this: Command,
@@ -42,33 +42,54 @@ export class DidiCLIProgram {
     }
 
     if (path) {
-      const cjmTergetBaseDir: string = resolve(process.cwd(), path);
-      const status = await transpileToESModule({
+      const commonJSProjectDir: string = resolve(process.cwd(), path);
+      const LibDiDiMachine = await transpileToESModule({
         profile: 'development',
         options: {
           compilerOptions: {},
           polyfillImportMap: polyfillImportMap
         },
-        cjmTergetBaseDir
+        commonJSProjectDir
       });
 
-      await devServer({
-        verbose: true,
-        root: resolve(cjmTergetBaseDir, 'target', 'es2015', 'debug'),
-        host: '127.0.0.1',
-        index: 'index.html',
-        port: 8086,
+      LibDiDiMachine.onTransition(async (transition) => {
+        const [stage, doing] = Object.entries(transition.value)[0];
+        let currStage = '';
+        switch (doing) {
+          case 'success':
+            console.log(`didi output ${transition.context.processedModuleCount} ES Modules`);
+
+            await devServer({
+              verbose: true,
+              root: transition.context.constants.MODULE_OUT_ROOT,
+              host: '127.0.0.1',
+              index: 'index.html',
+              port: 8086,
+            });
+
+            break;
+          case 'fail':
+            console.log(transition.event);
+            break;
+          default:
+            const moduleWasWrote = transition.context.foundDependencies[transition.context.processedModuleCount];
+            // Follow LibDidiMachine whilst writing es modules sequentially
+            if (moduleWasWrote?.name && !moduleWasWrote?.isDidiTarget) {
+              console.log(chalk `── {white ${stage}:} {green ✔ ${moduleWasWrote?.name}}`);
+            } else {
+              if (doing === 'ESModule') {
+                // skip
+              } else {
+                console.log(chalk `── {white ${stage}:} {green ✔ ${doing}}`);
+              }
+            }
+            break;
+        }
       });
-
-      console.log('http://localhost:8086');
-
-      if (status === 0) {
-        console.log('Process ended with exit code 0.')
-      }
     } else {
       console.log('The "path" argument must be of type string. Received no input.')
     }
   }
 }
 
-const p = new DidiCLIProgram();
+new DidiCLIProgram();

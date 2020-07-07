@@ -169,18 +169,18 @@
     "@types/express-serve-static-core" "*"
     "@types/mime" "*"
 
-"@wessberg/cjs-to-esm-transformer@^0.0.19":
-  version "0.0.19"
-  resolved "https://registry.yarnpkg.com/@wessberg/cjs-to-esm-transformer/-/cjs-to-esm-transformer-0.0.19.tgz#2383a75b3cabbd502a9a245ba0331d0976f3c9b7"
-  integrity sha512-IfPxm0jCm9GNPWH1Pgq+ocMOeSrFrfPzNJm47FfKeCoh6plKva4tejTwxeAFxbDCondF/va8XI2rS+LxZfzWiQ==
+"@wessberg/cjs-to-esm-transformer@^0.0.22":
+  version "0.0.22"
+  resolved "https://registry.yarnpkg.com/@wessberg/cjs-to-esm-transformer/-/cjs-to-esm-transformer-0.0.22.tgz#46beeaadc49d69257192aab860993b6c1292c693"
+  integrity sha512-2KX86KSlKmf8/FmzudfYjGRHhnMWAP/8/VrfanYTQ7/6kzMjpLT8x7RMMC/Dl5ilN4wh/rsjxHdhau2T3OUFyA==
   dependencies:
     "@wessberg/stringutil" "^1.0.19"
-    chalk "^3.0.0"
-    commander "^4.1.1"
+    chalk "^4.1.0"
+    commander "^5.1.0"
     glob "^7.1.6"
     reserved-words "^0.1.2"
-    resolve "^1.15.1"
-    tslib "^1.11.0"
+    resolve "^1.17.0"
+    tslib "^2.0.0"
 
 "@wessberg/stringutil@^1.0.19":
   version "1.0.19"
@@ -448,10 +448,10 @@ chalk@^2.0.1, chalk@^2.4.2:
     escape-string-regexp "^1.0.5"
     supports-color "^5.3.0"
 
-chalk@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/chalk/-/chalk-3.0.0.tgz#3f73c2bf526591f574cc492c51e2456349f844e4"
-  integrity sha512-4D3B6Wf41KOYRFdszmDqMCGq5VV/uMAB273JILmO+3jAlh8X4qDtdtgCR3fxtbLEMzSx22QdhnDcJvu2u1fVwg==
+chalk@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.1.0.tgz#4e14870a618d9e2edd97dd8345fd9d9dc315646a"
+  integrity sha512-qwx12AxXe2Q5xQ43Ac//I6v5aXTipYrSESdOgzrN+9XjgEpyjpKuvSGaN4qE93f7TQTlerQQ8S+EQ0EyDoVL1A==
   dependencies:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
@@ -544,10 +544,10 @@ commander@^2.14.1:
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
   integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
 
-commander@^4.1.1:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-4.1.1.tgz#9fd602bd936294e9e9ef46a3f4d6964044b18068"
-  integrity sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==
+commander@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-5.1.0.tgz#46abbd1652f8e059bddaef99bbdcb2ad9cf179ae"
+  integrity sha512-P0CysNDQ7rtVw4QIQtm+MRxV66vKFSvlsQvGYXZWR3qFU0jlMKHZZZgw8e+8DSah4UDKMqnknRDQz+xuQXQ/Zg==
 
 commander@~2.8.1:
   version "2.8.1"
@@ -573,6 +573,11 @@ config-chain@^1.1.11:
   dependencies:
     ini "^1.3.4"
     proto-list "~1.2.1"
+
+console-log-tree@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/console-log-tree/-/console-log-tree-1.2.1.tgz#ebdb163f0a432fd858185aba94f47f33092d4995"
+  integrity sha512-qIr67nbaNUfhRoa0uz05Wt8TPA1fpaLdw6EZ1y3dbiHhIJ46Q+ciaJxYPx0MQGHZZKbbH4walRTZZve7WDHBxg==
 
 content-disposition@^0.5.2, content-disposition@~0.5.2:
   version "0.5.3"
@@ -1978,7 +1983,7 @@ resolve-url@^0.2.1:
   resolved "https://registry.yarnpkg.com/resolve-url/-/resolve-url-0.2.1.tgz#2c637fe77c893afd2a663fe21aa9080068e2052a"
   integrity sha1-LGN/53yJOv0qZj/iGqkIAGjiBSo=
 
-resolve@^1.1.6, resolve@^1.15.1:
+resolve@^1.1.6, resolve@^1.17.0:
   version "1.17.0"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.17.0.tgz#b25941b54968231cc2d1bb76a79cb7f2c0bf8444"
   integrity sha512-ic+7JYiV8Vi2yzQGFWOkiZD5Z9z7O2Zhm9XMaTxdJExKasieFCr+yXZ/WmXsckHiKl12ar0y6XiXDx3m4RHn1w==
@@ -2299,10 +2304,10 @@ ts-node@^8.10.2:
     source-map-support "^0.5.17"
     yn "3.1.1"
 
-tslib@^1.11.0:
-  version "1.13.0"
-  resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.13.0.tgz#c881e13cc7015894ed914862d276436fa9a47043"
-  integrity sha512-i/6DQjL8Xf3be4K/E6Wgpekn5Qasl1usyw++dAA35Ue5orEn65VIxOA+YvNNl9HV3qv70T7CNwjODHZrLwvd1Q==
+tslib@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.0.0.tgz#18d13fc2dce04051e20f074cc8387fd8089ce4f3"
+  integrity sha512-lTqkx847PI7xEDYJntxZH89L2/aXInsyF2luSafe/+0fHOMjlBNXdH6th7f70qxLDhul7KZK0zC8V5ZIyHl0/g==
 
 tsscmp@1.0.6:
   version "1.0.6"

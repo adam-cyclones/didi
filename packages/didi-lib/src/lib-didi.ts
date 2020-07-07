@@ -1,225 +1,201 @@
-import resolveTree = require('resolve-tree');
-import { ErrorCode, IDidiInterfaceArgs } from './types/types';
-import { DidiCompilerPanic } from "./utils/errors/DidiCompilerPanic";
-import { isCoreModule } from "./utils/isCoreModule";
-import { mkdirESModules } from "./utils/mkdirESModules";
-import { removeCore } from "./utils/removeCoreModules";
-import { resolve, basename, sep } from 'path';
-import { tscESM } from './utils/toESM';
-import { writeESModule } from "./utils/writeESModule";
-import { writeImportMap } from "./utils/writeImportMap";
-import { writeIndexHTML } from "./utils/writeIndexHTML";
-import { writeModuleEntry } from "./utils/writeModuleEntry";
-import { alphaSortObject } from "./utils/alphaSortObject";
-import { shimLoaderWebruntime } from "./glue/shim-loader-webruntime";
+
+import { resolve} from 'path';
+import { Machine, interpret, assign, Interpreter } from 'xstate';
+
+import { IDidiInterfaceArgs } from './types/types';
+import { ILibDidiContext, ILibDidiSchema } from './types/machine.types';
+
+import { esModule } from './services/writing/esModule';
+import { esModuleIndex } from './services/writing/esModuleIndex';
+import { esModuleShim } from './services/writing/esModuleShim';
+import { importMap } from './services/writing/importMap';
+import { indexHTML } from './services/writing/indexHTML';
+import { mappingOutputService } from './services/discoveringDependencies/mappingOutputService';
+import { searchForDependenciesService } from './services/discoveringDependencies/searchForDependenciesService';
 
 
-import { Machine } from 'xstate';
-import { discoverDependenciesService } from './services/discoverDependciesActor';
-
-
-export const transpileToESModule = async ({
-  cjmTergetBaseDir,
+export const transpileToESModule = ({
+  commonJSProjectDir,
   profile,
   options
-}: IDidiInterfaceArgs): Promise<ErrorCode> => {
-    process.chdir(cjmTergetBaseDir);
+}: IDidiInterfaceArgs): Interpreter<ILibDidiContext> => {
+    process.chdir(commonJSProjectDir);
 
-    // TODO: clarify
-    const SUCCESS = 0;
-    const DEVELOPMENT = true;
-    const DIST_NAME = 'target';
+    const DEVELOPMENT = (profile || 'development') === 'development';
+    const DIST_DIR_NAME = 'target';
     const OUT_DIR_NAME = 'es_modules';
-    const OUT_DIR: string = resolve(cjmTergetBaseDir, DIST_NAME, 'es2015', DEVELOPMENT ? 'debug': 'release', OUT_DIR_NAME);
-    const OUT_ROOT = resolve(OUT_DIR, '../');
-    const lookups: Array<'dependencies' | 'devDependencies'> = [
-      'dependencies'
-    ];
 
-
-    interface ILibDidiSchema {
-        states: {
-            discoveringDependcies: {
-                states: {
-                    searching: any;
-                }
-            };
-            writing: {
-                states: {
-                    ESModule: {};
-                    ImportMap: {};
-                    IndexHtml: {};
-                    ModuleIndex: {};
-                    ESModuleShim: {};
-                }
-            };
-            result: {
-
-            };
-        };
-    }
-
-    // The context (extended state) of the machine
-    interface ILibDidiContext {
-        importMap: object;
-    }
-
-
-
-    Machine<ILibDidiContext, ILibDidiSchema>({
+    const didiBuildMachine = Machine<ILibDidiContext, ILibDidiSchema, any>({
         id: 'lib-didi-build-steps',
-        initial: 'discoveringDependcies',
+        initial: 'discoveringDependencies',
         context: {
-            importMap: {},
+            constants: {
+                MODULE_OUT_DIR: resolve(commonJSProjectDir, DIST_DIR_NAME, 'es2015', DEVELOPMENT ? 'debug': 'release', OUT_DIR_NAME),
+                get MODULE_OUT_ROOT () {
+                    return resolve(this.MODULE_OUT_DIR, '../');
+                }
+            },
+            foundDependencies: [],
+            importMap: {
+                imports: {},
+                scopes: {}
+            },
+            processedModuleCount: 0,
         },
         states: {
-            'discoveringDependcies': {
+            'discoveringDependencies': {
+                initial: 'searching',
                 states: {
                     'searching': {
-                        // @ts-ignore
                         invoke: {
-                            id: 'discoverDependcies',
-                            src: discoverDependenciesService(),
+                            id: 'search',
+                            src: (...xstateArgs) => searchForDependenciesService({ commonJSProjectDir }, xstateArgs),
                             onDone:{
-                                target: '#write.ESModule'
+                                target: 'mappingOutput',
+                                actions: assign({ foundDependencies: (context, event) => event.data })
                             },
                             onError: {
-                                target: '#result.fail'
-                            },
+                                target: '#resultSteps.fail'
+                            }
                         },
                     },
+                    'mappingOutput': {
+                        invoke: {
+                            id: 'mapOutput',
+                            src: (...xstateArgs) => mappingOutputService({ commonJSProjectDir }, xstateArgs[0]),
+                            onDone:{
+                                target: '#writeSteps',
+                                actions: assign({ foundDependencies: (context, event) => event.data })
+                            },
+                            onError: {
+                                target: '#resultSteps.fail'
+                            },
+                        },
+                    }
                 },
             },
             'writing': {
-                id: 'write',
+                id: 'writeSteps',
+                initial: 'ESModule',
                 states: {
                     'ESModule': {
-
+                        invoke: {
+                            src: (...xstateArgs) => esModule({ commonJSProjectDir }, xstateArgs[0].foundDependencies[xstateArgs[0].processedModuleCount]),
+                            onDone: [
+                                {
+                                    target: '#writeSteps.ImportMap',
+                                    cond: (context) => {
+                                        return context.processedModuleCount === context.foundDependencies.length;
+                                    }
+                                },
+                                {
+                                    target: '#writeSteps.ESModule',
+                                    actions: assign({ processedModuleCount: (context, event) => context.processedModuleCount += 1 }),
+                                }
+                            ],
+                            onError: [
+                                {
+                                    target: '#writeSteps.ESModuleIndex',
+                                    cond: (context, event) => {
+                                        return event.data.name === 'DidiPermissibleError';
+                                    }
+                                },
+                                {
+                                    target: '#resultSteps.fail'
+                                }
+                            ],
+                        }
+                    },
+                    'ESModuleIndex': {
+                        invoke: {
+                            src: (...xstateArgs) => esModuleIndex({
+                                moduleOutRoot: xstateArgs[0].constants.MODULE_OUT_ROOT,
+                                currentDependency: xstateArgs[0].foundDependencies[xstateArgs[0].processedModuleCount]
+                            }),
+                            onDone: [
+                                {
+                                    target: '#writeSteps.ESModule',
+                                    actions: assign({ processedModuleCount: (context) => context.processedModuleCount += 1 }),
+                                    cond: (context) => {
+                                        return context.processedModuleCount !== context.foundDependencies.length;
+                                    }
+                                },
+                                {
+                                    target: '#writeSteps.ImportMap',
+                                    cond: (context) => {
+                                        return context.processedModuleCount === context.foundDependencies.length;
+                                    }
+                                },
+                                {
+                                    target: '#resultSteps.fail'
+                                }
+                            ],
+                            onError: {
+                                target: '#resultSteps.fail'
+                            },
+                        }
                     },
                     'ImportMap': {
-
-                    },
-                    'IndexHtml': {
-
-                    },
-                    'ModuleIndex': {
-
+                        invoke: {
+                            src: (...xstateArgs) => importMap({ commonJSProjectDir, options }, {
+                                dependencies: xstateArgs[0].foundDependencies,
+                                importMap: xstateArgs[0].importMap,
+                                constants: xstateArgs[0].constants,
+                            }),
+                            onDone: {
+                                target: '#writeSteps.ESModuleShim',
+                                actions: assign({ importMap: (context, event) => event.data })
+                            },
+                            onError: {
+                                target: '#resultSteps.fail'
+                            }
+                        }
                     },
                     'ESModuleShim': {
-                        type: 'parallel'
+                        invoke: {
+                            src: (...xstateArgs) => esModuleShim({ moduleOutRoot: xstateArgs[0].constants.MODULE_OUT_ROOT }),
+                            onDone: {
+                                target: '#writeSteps.IndexHtml'
+                            },
+                            onError: {
+                                target: '#resultSteps.fail'
+                            }
+                        }
+                    },
+                    'IndexHtml': {
+                        invoke: {
+                            src: (...xStateArgs) => indexHTML({ options }, {
+                                importMap: xStateArgs[0].importMap,
+                                constants: xStateArgs[0].constants
+                            }),
+                            onDone: {
+                                target: '#resultSteps'
+                            },
+                            onError: {
+                                target: '#resultSteps.fail'
+                            }
+                        }
                     },
                 },
             },
             'result': {
-                id:'result',
+                id:'resultSteps',
+                initial: 'success',
                 states: {
                     'fail': {
-
+                        type: 'final'
                     },
                     'success': {
-
+                        type: 'final'
                     }
                 }
             }
         }
     });
 
-    const resolveTreeOpts = {
-        basedir: cjmTergetBaseDir,
-        lookups
-    }
+    const libDidiInstance = interpret(didiBuildMachine);
 
-    await new Promise((end) => {
-        resolveTree.packages([cjmTergetBaseDir], resolveTreeOpts, async (err, roots) => {
-            if (err) {
-                throw new DidiCompilerPanic(err)
-            }
+    libDidiInstance.start();
 
-            const flat = resolveTree.flatten(roots);
-
-            const withOutput = flat.map(dependency => {
-                return {
-                    name: dependency.name,
-                    isDidiTarget: dependency.root === cjmTergetBaseDir,
-                    main: require.resolve(dependency.root),
-                    isCore: isCoreModule(dependency.name),
-                    output: {
-                        main: resolve(
-                          OUT_DIR,
-                          dependency.name,
-                          dependency.version || '*',
-                          require.resolve(dependency.root).replace(dependency.root + '/', '')
-                        ),
-                        version: dependency.version,
-                        get dir() {
-                            return resolve(this.main, '../');
-                        },
-                        get filename() {
-                            return basename(this.main).replace('.j','.mj');
-                        }
-                    }
-                }
-            });
-
-            const moduleList = removeCore(withOutput);
-
-            // // all modules that are not node core and potentially used are listed in the targets flat tree
-            // // it is hard to tell what is actually used without a runtime check :(
-            await mkdirESModules(OUT_DIR);
-            const importMap = {
-                imports: {},
-                scopes: {}
-            };
-
-            let modIndexFilename;
-            const modIndexImportAlias = '_';
-            const firstSlashExp = new RegExp(`\\${sep}(.+)`);
-
-            for (const target of moduleList) {
-                // from the root of my node_modules/<module_name>/../main what is main?
-                const relativeModuleMainFilename = target.main
-                  .replace(`${cjmTergetBaseDir}${sep}node_modules${sep}`, '')
-                  .split(firstSlashExp)[1];
-
-                if (target.isDidiTarget) {
-                    target.output.main = resolve(OUT_ROOT, target.output.filename);
-                    modIndexFilename = await writeModuleEntry(target);
-                    importMap.imports[modIndexImportAlias] = `/${target.output.filename}`;
-                } else {
-                    const esmContent = await tscESM(target.main, target);
-                    if (esmContent) {
-                        await writeESModule(target.output.dir, target.output.filename, esmContent);
-                    } else if (!target.skipped) {
-                        // Didi didnt catch this error
-                        throw new DidiCompilerPanic('Received no input to transpile.');
-                    }
-
-                    console.log(target.main.replace(`${cjmTergetBaseDir}${sep}node_modules${sep}`, '').split(firstSlashExp)[1])
-                    // import map record
-                    importMap.imports[`${target.name}`] = `/${OUT_DIR_NAME}/${target.name}/${target.output.version}/${relativeModuleMainFilename.replace('.j','.mj')}`;
-                }
-            }
-
-            // Sort
-            importMap.imports = alphaSortObject(importMap.imports);
-            importMap.scopes = alphaSortObject(importMap.scopes);
-
-            const wroteImportMap = await writeImportMap(OUT_ROOT, JSON.stringify(importMap, null, 4));
-            await writeIndexHTML(OUT_ROOT, {
-                scriptModuleUrl: modIndexImportAlias,
-                polyFillScriptUrl: 'es-module-shims.min.js',
-                // If shimmed, we need to inline the import map
-                importMapInlineContent: wroteImportMap
-            });
-            await shimLoaderWebruntime({
-                OUT_DIR: OUT_ROOT,
-                polyfillImportMap: options.polyfillImportMap,
-                polyFillScriptUrl: 'es-module-shims.min.js'
-            });
-            // tree shake via runtime in headless browser
-
-            end();
-        });
-    });
-    return SUCCESS;
+    return libDidiInstance;
 }

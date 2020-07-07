@@ -7,7 +7,7 @@ export type DidiCompilerOptions = Omit<
   >
 
 export interface IDidiInterfaceArgs {
-  cjmTergetBaseDir: string;
+  commonJSProjectDir: string;
   profile: 'development' | 'production'
   options: {
     compilerOptions: DidiCompilerOptions,
@@ -29,3 +29,5 @@ export interface ITemplateHTMLIndexArgs {
 }
 
 export type ErrorCode = number;
+
+export type NodeDependencyTypes = Array<'dependencies' | 'devDependencies'>;

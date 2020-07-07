@@ -17,12 +17,10 @@ export const tscESM = async (path, target) => {
       }
     });
   } catch (e) {
-    target.skipped = true;
+    target.output.skipped = true;
     console.warn('\n[Warning] skipping a module, unable to transpile ESM!', path, `
-This could be caused by a multiple left-hand assignment require call which causes cjsToEsm to panic.
-- Issue: https://github.com/wessberg/cjs-to-esm-transformer/issues/6
 - Try installing the latest version of this library: '${path}' as a dependency of your project.
-        `);
+`);
     return '';
   }
   if (tscResult.outputText) {

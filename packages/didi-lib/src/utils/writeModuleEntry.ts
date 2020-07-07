@@ -1,5 +1,4 @@
 import { promises } from 'fs';
-import { resolve, basename } from "path";
 import { tscESM } from './toESM';
 
 const {
