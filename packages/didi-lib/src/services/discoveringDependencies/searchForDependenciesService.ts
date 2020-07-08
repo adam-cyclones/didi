@@ -1,5 +1,5 @@
 import resolveTree = require('resolve-tree');
-import { DidiCompilerPanic } from "../../utils/errors/DidiCompilerPanic";
+import { DidiCompilerPanic } from '../../utils/errors/DidiCompilerPanic';
 import { NodeDependencyTypes } from '../../types/types';
 
 /**
@@ -11,8 +11,8 @@ export const searchForDependenciesService = async ({ commonJSProjectDir }, ..._a
   const lookups: NodeDependencyTypes = ['dependencies'];
   const resolveTreeOpts = {
     basedir: commonJSProjectDir,
-    lookups
-  }
+    lookups,
+  };
 
   return new Promise((resolve, reject) => {
     resolveTree.packages([commonJSProjectDir], resolveTreeOpts, async (err, roots) => {

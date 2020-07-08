@@ -1,11 +1,11 @@
 import { ModuleOutRootPath } from '../../types/machine.types';
-import { promises } from "fs";
-import { DidiCompilerPanic } from "../../utils/errors/DidiCompilerPanic";
+import { promises } from 'fs';
+import { DidiCompilerPanic } from '../../utils/errors/DidiCompilerPanic';
 import { basename, sep } from 'path';
 
 const {
   readFile,
-  writeFile
+  writeFile,
 } = promises;
 
 /**

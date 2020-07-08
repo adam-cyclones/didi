@@ -1,20 +1,19 @@
 import Koa from 'koa';
-import { IDevServerArgs } from './types/types';
-import minimist from 'minimist';
-import { promises } from "fs";
-import { resolve, extname } from 'path';
 import mime from 'mime-types';
+import minimist from 'minimist';
+import { IDevServerArgs } from './types/types';
+import { extname, resolve } from 'path';
 import { parse } from 'url';
+import { promises } from 'fs';
 
 const { readFile } = promises;
 
-const argv: Partial<IDevServerArgs> = minimist(process.argv.slice(2))
+const argv: Partial<IDevServerArgs> = minimist(process.argv.slice(2));
 
 const readWithMime = async (ctx: Koa.Context, path: string) => {
   ctx.body = await readFile(path, 'utf8');
   ctx.type = mime.lookup(extname(parse(ctx.request.url).pathname as string));
-  console.log(ctx.type, )
-}
+};
 
 export const devServer = async ({
   host,
@@ -23,7 +22,7 @@ export const devServer = async ({
   port,
   reload,
   root,
-  verbose
+  verbose,
 }: Partial<IDevServerArgs>) => {
   const dev = new Koa();
 
@@ -36,14 +35,14 @@ export const devServer = async ({
           ctx.body = '500';
         }
       } else {
-        console.log(root, resolve(root, parse(ctx.request.url.replace('/', '')).pathname as string))
+        console.log(root, resolve(root, parse(ctx.request.url.replace('/', '')).pathname as string));
         await readWithMime(ctx, resolve(root, parse(ctx.request.url.replace('/', '')).pathname as string));
-        console.log(ctx.type, ctx.request.url)
+        console.log(ctx.type, ctx.request.url);
       }
     });
     dev.listen(port);
   }
-}
+};
 
 if (Object.keys(argv).length > 1) {
   devServer({

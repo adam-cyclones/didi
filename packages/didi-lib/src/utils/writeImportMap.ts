@@ -1,15 +1,13 @@
 import { promises } from 'fs';
-import {resolve} from "path";
+import { resolve } from 'path';
 
-const {
-  writeFile
-} = promises;
+const { writeFile } = promises;
 
-export const writeImportMap = async (path: string, content: string = '{}'): Promise<string> => {
+export const writeImportMap = async (path: string, content = '{}'): Promise<string> => {
   await writeFile(
     resolve(path, 'didi.importmap'),
     content,
-    'utf-8'
+    'utf-8',
   );
   return content;
-}
+};

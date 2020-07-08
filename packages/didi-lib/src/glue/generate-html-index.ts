@@ -1,18 +1,18 @@
-import {ITemplateHTMLIndexArgs} from "../types/types";
+import { ITemplateHTMLIndexArgs } from '../types/types';
 import { didiGlue } from './didi-glue';
 
 const NOTHING = '';
 
 export const generateHtmlIndex = async ({
-  title,
   description,
-  lang,
-  polyfillImportMap,
-  noScriptMessage,
-  importMapUrl,
   importMapInlineContent,
+  importMapUrl,
+  lang,
+  noScriptMessage,
+  polyFillScriptUrl,
+  polyfillImportMap,
   scriptModuleUrl,
-  polyFillScriptUrl
+  title,
 }: ITemplateHTMLIndexArgs) => {
   return `
 <!doctype html>
@@ -30,7 +30,7 @@ export const generateHtmlIndex = async ({
   ${importMapInlineContent && polyfillImportMap ? 
     `<script type="importmap-shim" >${importMapInlineContent}</script>` : 
     `<script type="importmap" src="${importMapUrl}"></script>` 
-  }
+}
   ${didiGlue()}  
   ${importMapInlineContent && polyfillImportMap ?
     `<script type="module-shim">
@@ -38,7 +38,7 @@ export const generateHtmlIndex = async ({
     console.log("ran")
     </script>` :
     `<script type="module" src="${scriptModuleUrl}"></script>`
-  }
+}
   
 </head>
 

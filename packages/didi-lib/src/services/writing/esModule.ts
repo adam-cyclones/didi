@@ -1,8 +1,8 @@
 import { IDidiTreeDependency } from '../../types/machine.types';
-import { DidiPermissibleError } from "../../utils/errors/DidiPermissibleError";
+import { DidiPermissibleError } from '../../utils/errors/DidiPermissibleError';
 import { tscESM } from '../../utils/toESM';
 import { writeESModule } from '../../utils/writeESModule';
-import { DidiCompilerPanic } from "../../utils/errors/DidiCompilerPanic";
+import { DidiCompilerPanic } from '../../utils/errors/DidiCompilerPanic';
 
 /**
  * @description Remap found dependencies with new output destination information.
@@ -18,10 +18,10 @@ export const esModule = async ({ commonJSProjectDir }, currentDependency: IDidiT
       } else {
         const esmContent = await tscESM(currentDependency.main, currentDependency);
         if (esmContent) {
-            await writeESModule(currentDependency.output.dir, currentDependency.output.filename, esmContent);
+          await writeESModule(currentDependency.output.dir, currentDependency.output.filename, esmContent);
         } else if (!currentDependency.skipped) {
-            // Didi didnt catch this error
-            throw new DidiCompilerPanic('Received no input to transpile.');
+          // Didi didnt catch this error
+          throw new DidiCompilerPanic('Received no input to transpile.');
         }
       }
     } else {

@@ -1,6 +1,6 @@
-import {IDidiTreeDependency, ILibDidiContext} from '../../types/machine.types';
-import {writeImportMap} from "../../utils/writeImportMap";
-import {alphaSortObject} from "../../utils/alphaSortObject";
+import { IDidiTreeDependency, ILibDidiContext } from '../../types/machine.types';
+import { writeImportMap } from '../../utils/writeImportMap';
+import { alphaSortObject } from '../../utils/alphaSortObject';
 
 interface IimportMapArgs {
   dependencies: IDidiTreeDependency[],
@@ -16,7 +16,7 @@ interface IimportMapArgs {
  * @param constants
  * @param commonJSProjectDir where to find the project didi is transpiling
  * */
-export const importMap = async ({ commonJSProjectDir, options }, {dependencies, importMap, constants}: IimportMapArgs) => {
+export const importMap = async ({ commonJSProjectDir, options }, { dependencies, importMap, constants }: IimportMapArgs) => {
   const importMapRecords = dependencies.map((dependency) => {
     if (dependency.skipped) {
       return null;
@@ -24,8 +24,8 @@ export const importMap = async ({ commonJSProjectDir, options }, {dependencies, 
 
       return {
         imports: dependency.importMapImportRecord,
-        scopes: dependency.importMapScopeRecord
-      }
+        scopes: dependency.importMapScopeRecord,
+      };
     }
   })
     // ignore skipped - (caused parse issue - handled later)

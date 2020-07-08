@@ -8,4 +8,4 @@ export const toExtMJS = (pathWithExtension: string): string => {
   } else {
     return pathWithExtension;
   }
-}
+};

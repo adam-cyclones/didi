@@ -1,11 +1,9 @@
-import { promises } from 'fs';
-import {resolve} from "path";
+import { ITemplateHTMLIndexArgs } from '../types/types';
 import { generateHtmlIndex } from '../glue/generate-html-index';
-import {ITemplateHTMLIndexArgs} from "../types/types";
+import { promises } from 'fs';
+import { resolve } from 'path';
 
-const {
-  writeFile
-} = promises;
+const { writeFile } = promises;
 
 export const writeIndexHTML = async (path: string, options: Partial<ITemplateHTMLIndexArgs> = {}): Promise<void> => {
   await writeFile(
@@ -19,8 +17,8 @@ export const writeIndexHTML = async (path: string, options: Partial<ITemplateHTM
       importMapUrl: 'didi.importmap',
       scriptModuleUrl: 'mod.js',
       polyFillScriptUrl: '',
-      ...options
+      ...options,
     }),
-    'utf-8'
+    'utf-8',
   );
-}
+};
