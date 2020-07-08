@@ -1,6 +1,6 @@
 {
-  "name": "didi-devserver",
-  "version": "1.0.0",
+  "name": "@didi-js/didi-devserver",
+  "version": "0.0.1",
   "description": "A tiny devserver used for development and internally",
   "author": "Adam Crockett",
   "license": "MIT",
