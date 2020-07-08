@@ -1,9 +1,9 @@
-import {ModuleKind, transpileModule} from "typescript";
-import {cjsToEsm} from "@wessberg/cjs-to-esm-transformer";
-import {promises} from "fs";
+import { ModuleKind, transpileModule } from 'typescript';
+import { cjsToEsm } from '@wessberg/cjs-to-esm-transformer';
+import { promises } from 'fs';
 
 const {
-  readFile
+  readFile,
 } = promises;
 
 export const tscESM = async (path, target) => {
@@ -14,7 +14,7 @@ export const tscESM = async (path, target) => {
       transformers: cjsToEsm(),
       compilerOptions: {
         module: ModuleKind.ESNext,
-      }
+      },
     });
   } catch (e) {
     target.output.skipped = true;
@@ -26,6 +26,6 @@ export const tscESM = async (path, target) => {
   if (tscResult.outputText) {
     return tscResult.outputText;
   } else {
-    return "";
+    return `throw new Error('didi failed to parse this file.') ${content}`;
   }
-}
+};

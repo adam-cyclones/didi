@@ -1,9 +1,9 @@
-import { mkdirESModules } from "./mkdirESModules";
-import { resolve } from "path";
-import { promises } from "fs";
+import { mkdirESModules } from './mkdirESModules';
+import { promises } from 'fs';
+import { resolve } from 'path';
 
 const {
-  writeFile
+  writeFile,
 } = promises;
 
 export const writeESModule = async (path, filename, content) => {
@@ -11,6 +11,6 @@ export const writeESModule = async (path, filename, content) => {
   await writeFile(
     resolve(path, filename),
     content,
-    'utf-8'
+    'utf-8',
   );
-}
+};

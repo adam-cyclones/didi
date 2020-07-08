@@ -3,6 +3,7 @@ import { devServer } from '../../didi-devserver/src/didi-devserver';
 import chalk from 'chalk';
 import { resolve } from 'path';
 import {
+  Command,
   command,
   commandOption,
   description,
@@ -12,29 +13,26 @@ import {
   requiredArg,
   usage,
   version,
-  Command
 } from 'commander-ts';
 
 @program()
-@version('1.0.0')
+@version('1.0.0') // TODO: use manifest version
 @description('Convert a project from common JS to ESmodules, with included bundler-like / task runner behaviour.')
 @usage('--help')
 export class DidiCLIProgram {
-  constructor() {}
 
   @option('--env <env>')
   env: string | null = null;
 
   @command()
-  @commandOption('--profile', `<!--suppress HtmlUnknownTag -->
-<development | production> production produces an optimized build. (defaults: development)`)
-  @commandOption('--polyfillImportMap', `Until Import Maps stabilize`)
+  @commandOption('--profile', '<development | production> production produces an optimized build. (defaults: development)')
+  @commandOption('--polyfillImportMap', 'Until Import Maps stabilize')
   async run(
     this: Command,
     // Required
     @requiredArg('transpileToESModule') path: string,
     // Optional
-    @optionalArg('polyfillImportMap') polyfillImportMap: boolean
+    @optionalArg('polyfillImportMap') polyfillImportMap: boolean,
   ) {
     // Defaults
     if (!polyfillImportMap) {
@@ -47,47 +45,46 @@ export class DidiCLIProgram {
         profile: 'development',
         options: {
           compilerOptions: {},
-          polyfillImportMap: polyfillImportMap
+          polyfillImportMap: polyfillImportMap,
         },
-        commonJSProjectDir
+        commonJSProjectDir,
       });
 
       LibDiDiMachine.onTransition(async (transition) => {
+        const moduleWasWrote = transition.context.foundDependencies[transition.context.processedModuleCount];
         const [stage, doing] = Object.entries(transition.value)[0];
-        let currStage = '';
         switch (doing) {
-          case 'success':
-            console.log(`didi output ${transition.context.processedModuleCount} ES Modules`);
+        case 'success':
+          console.log(`didi output ${transition.context.processedModuleCount} ES Modules`);
 
-            await devServer({
-              verbose: true,
-              root: transition.context.constants.MODULE_OUT_ROOT,
-              host: '127.0.0.1',
-              index: 'index.html',
-              port: 8086,
-            });
+          await devServer({
+            verbose: true,
+            root: transition.context.constants.MODULE_OUT_ROOT,
+            host: '127.0.0.1',
+            index: 'index.html',
+            port: 8086,
+          });
 
-            break;
-          case 'fail':
-            console.log(transition.event);
-            break;
-          default:
-            const moduleWasWrote = transition.context.foundDependencies[transition.context.processedModuleCount];
-            // Follow LibDidiMachine whilst writing es modules sequentially
-            if (moduleWasWrote?.name && !moduleWasWrote?.isDidiTarget) {
-              console.log(chalk `── {white ${stage}:} {green ✔ ${moduleWasWrote?.name}}`);
+          break;
+        case 'fail':
+          console.log(transition.event);
+          break;
+        default:
+          // Follow LibDidiMachine whilst writing es modules sequentially
+          if (moduleWasWrote?.name && !moduleWasWrote?.isDidiTarget) {
+            console.log(chalk `── {white ${stage}:} {green ✔ ${moduleWasWrote?.name}}`);
+          } else {
+            if (doing === 'ESModule') {
+              // skip
             } else {
-              if (doing === 'ESModule') {
-                // skip
-              } else {
-                console.log(chalk `── {white ${stage}:} {green ✔ ${doing}}`);
-              }
+              console.log(chalk `── {white ${stage}:} {green ✔ ${doing}}`);
             }
-            break;
+          }
+          break;
         }
       });
     } else {
-      console.log('The "path" argument must be of type string. Received no input.')
+      console.log('The "path" argument must be of type string. Received no input.');
     }
   }
 }

@@ -2,18 +2,18 @@ export interface IDevServerArgs {
   /*
   * the web root - or ["path/to/root1", "path/to/root2"] for multiple web roots
   * */
-  root: string,
+  root: string;
   /**
    * the host to listen to
    * */
-  host: string | '127.0.0.1',
+  host: string | '127.0.0.1';
   /**
    * The port to listen to
    * */
   port: number;
   index: string;
   verbose: boolean;
-  https: {},
+  https: Record<string, never>;
   /**
    * string or an array of paths, regexs or globs
    * */

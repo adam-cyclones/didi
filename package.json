@@ -6,19 +6,20 @@
   "dependencies": {
     "@types/koa": "^2.11.3",
     "@types/node": "^14.0.13",
+    "@types/chalk": "^2.2.0",
     "@wessberg/cjs-to-esm-transformer": "^0.0.22",
+    "chalk": "^4.1.0",
     "commander-ts": "^0.1.5",
+    "console-log-tree": "^1.2.1",
+    "es-module-shims": "^0.4.7",
+    "koa": "^2.13.0",
+    "mime-types": "^2.1.27",
     "mkdirp": "^1.0.4",
     "nexe": "^3.3.3",
-    "chalk": "^4.1.0",
     "reflect-metadata": "^0.1.13",
-    "console-log-tree": "^1.2.1",
     "resolve-tree": "^0.1.14",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.5",
-    "koa": "^2.13.0",
-    "mime-types": "^2.1.27",
-    "es-module-shims": "^0.4.7",
     "xstate": "^4.11.0"
   },
   "scripts": {
@@ -26,5 +27,10 @@
     "build-all": "yarn build-devserver && yarn build-cli-client",
     "build-cli-client": "yarn --cwd ./packages/didi-cli-client build",
     "build-devserver": "yarn --cwd ./packages/didi-devserver build"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^3.6.0",
+    "@typescript-eslint/parser": "^3.6.0",
+    "eslint": "^7.4.0"
   }
 }

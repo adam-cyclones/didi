@@ -1,5 +1,5 @@
-import {InvokeCreator, StateSchema} from "xstate";
-import { InvokedPromiseOptions } from "xstate/lib/invoke";
+import { InvokeCreator, StateSchema } from 'xstate';
+import { InvokedPromiseOptions } from 'xstate/lib/invoke';
 
 /**
  * @description gives context to a didi build invoked promise
@@ -64,9 +64,9 @@ export interface IDidiTreeDependency {
   }
 }
 
-interface IDidiImportMap {
-  imports: object;
-  scopes: object;
+export interface IDidiImportMap {
+  imports: Record<string, unknown>;
+  scopes: Record<string, unknown>;
 }
 
 /**

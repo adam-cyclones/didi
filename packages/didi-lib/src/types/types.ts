@@ -1,4 +1,4 @@
-import ts = require("typescript");
+import ts = require('typescript');
 
 export type DidiCompilerOptions = Omit<
   ts.CreateProgramOptions['options'],

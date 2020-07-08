@@ -5,8 +5,7 @@ export const removeDuplicates = (originalArray) => {
     lookupObject[originalArray[index]['name']] = originalArray[index];
   }
   for(const index in lookupObject) {
-    // @ts-ignore
     newArray.push(lookupObject[index]);
   }
   return newArray;
-}
+};
