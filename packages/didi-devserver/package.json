@@ -7,9 +7,16 @@
   "private": false,
   "dependencies": {
     "minimist": "^1.2.5",
-    "koa": "^2.13.0"
+    "koa": "^2.13.0",
+    "mime-types": "^2.1.27"
+  },
+  "devDependencies": {
+    "typescript": "^3.9.5",
+    "nexe": "^3.3.3",
+    "@types/koa": "^2.11.3",
+    "@types/node": "^14.0.13"
   },
   "scripts": {
-    "build": "../../node_modules/typescript/bin/tsc -p ./src && node ../../node_modules/nexe/index.js --input ./release/didi-devserver/src/didi-devserver.js --output ./release/run-didi-devserver && rm -rf ./release/didi-*"
+    "build": "./node_modules/typescript/bin/tsc -p ./src && node ./node_modules/nexe/index.js --input ./release/didi-devserver/src/didi-devserver.js --output ./release/run-didi-devserver && rm -rf ./release/didi-*"
   }
 }
