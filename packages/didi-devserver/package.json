@@ -18,6 +18,7 @@
     "@types/node": "^14.0.13"
   },
   "scripts": {
-    "build": "./node_modules/typescript/bin/tsc -p ./src && cp ./package.json ../../didi-release/didi-devserver && rm -rf ../../didi-release/didi-devserver/dist && mv -f ../../didi-release/didi-devserver/src ../../didi-release/didi-devserver/dist"
+    "build": "./node_modules/typescript/bin/tsc -p ./src && cp ./package.json ../../release/didi-devserver && rm -rf ../../release/didi-devserver/dist && mv -f ../../release/didi-devserver/src ../../release/didi-devserver/dist",
+    "prepublish": "yarn build"
   }
 }
