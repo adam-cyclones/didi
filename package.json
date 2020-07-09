@@ -1,13 +1,14 @@
 {
   "name": "@didi-js/didi",
-  "description": "The didi root repository, go to packages for more details about specific parts of didi.",
+  "description": "A transpiler for JavaScript and Typescript, transforming CommonJS modules into distinct ES Modules.",
   "private": true,
   "license": "MIT",
   "scripts": {
     "publish-readme": "git add ./README.md && git add ./docs && git commit -m 'update readme' && git push",
-    "build-all": "yarn build-devserver && yarn build-cli-client",
+    "build-all": "yarn build-lib-didi && yarn build-devserver && yarn build-cli-client && node ./build/dist-package-json.js 0.0.0",
     "build-cli-client": "yarn --cwd ./packages/didi-cli-client build",
-    "build-devserver": "yarn --cwd ./packages/didi-devserver build"
+    "build-devserver": "yarn --cwd ./packages/didi-devserver build",
+    "build-lib-didi": "yarn --cwd ./packages/didi-lib build"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.6.0",

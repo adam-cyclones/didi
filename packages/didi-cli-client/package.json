@@ -1,5 +1,6 @@
 {
   "name": "@didi-js/didi-cli",
+  "bin": { "didi": "./dist/didi-cli.js" },
   "version": "0.0.1",
   "description": "CLI client for lib-didi. didi is a bundleless bundler for JavaScript and Typescript that transpiles common.js modules into distinct ESmodules.",
   "main": "index.js",
@@ -17,6 +18,6 @@
     "typescript": "^3.9.5"
   },
   "scripts": {
-    "build": "./node_modules/typescript/bin/tsc -p ./src && node ./node_modules/nexe/index.js --input ./release/didi-cli-client/src/didi-cli.js --output ./release/didi && rm -rf ./release/didi-*"
+    "build": "./node_modules/typescript/bin/tsc -p ./src && cp ./package.json ../../didi-release/didi-cli-client && rm -rf ../../didi-release/didi-cli-client/dist && mv -f ../../didi-release/didi-cli-client/src ../../didi-release/didi-cli-client/dist"
   }
 }

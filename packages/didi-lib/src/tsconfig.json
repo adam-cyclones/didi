@@ -69,6 +69,6 @@
     "forceConsistentCasingInFileNames": true  /* Disallow inconsistently-cased references to the same file. */
   },
   "files": [
-    "didi-cli.ts"
+    "lib-didi.ts"
   ]
 }
