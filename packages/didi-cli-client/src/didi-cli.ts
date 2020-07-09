@@ -1,7 +1,5 @@
-import { transpileToESModule } from '../../didi-lib/src/lib-didi';
-import { devServer } from '../../didi-devserver/src/didi-devserver';
-import chalk from 'chalk';
-import { resolve } from 'path';
+// import chalk from 'chalk';
+// import { resolve } from 'path';
 import {
   Command,
   command,
@@ -39,53 +37,53 @@ export class DidiCLIProgram {
       polyfillImportMap = true;
     }
 
-    if (path) {
-      const commonJSProjectDir: string = resolve(process.cwd(), path);
-      const LibDiDiMachine = await transpileToESModule({
-        profile: 'development',
-        options: {
-          compilerOptions: {},
-          polyfillImportMap: polyfillImportMap,
-        },
-        commonJSProjectDir,
-      });
-
-      LibDiDiMachine.onTransition(async (transition) => {
-        const moduleWasWrote = transition.context.foundDependencies[transition.context.processedModuleCount];
-        const [stage, doing] = Object.entries(transition.value)[0];
-        switch (doing) {
-        case 'success':
-          console.log(`didi output ${transition.context.processedModuleCount} ES Modules`);
-
-          await devServer({
-            verbose: true,
-            root: transition.context.constants.MODULE_OUT_ROOT,
-            host: '127.0.0.1',
-            index: 'index.html',
-            port: 8086,
-          });
-
-          break;
-        case 'fail':
-          console.log(transition.event);
-          break;
-        default:
-          // Follow LibDidiMachine whilst writing es modules sequentially
-          if (moduleWasWrote?.name && !moduleWasWrote?.isDidiTarget) {
-            console.log(chalk `── {white ${stage}:} {green ✔ ${moduleWasWrote?.name}}`);
-          } else {
-            if (doing === 'ESModule') {
-              // skip
-            } else {
-              console.log(chalk `── {white ${stage}:} {green ✔ ${doing}}`);
-            }
-          }
-          break;
-        }
-      });
-    } else {
-      console.log('The "path" argument must be of type string. Received no input.');
-    }
+    // if (path) {
+    //   const commonJSProjectDir: string = resolve(process.cwd(), path);
+    //   const LibDiDiMachine = await transpileToESModule({
+    //     profile: 'development',
+    //     options: {
+    //       compilerOptions: {},
+    //       polyfillImportMap: polyfillImportMap,
+    //     },
+    //     commonJSProjectDir,
+    //   });
+    //
+    //   LibDiDiMachine.onTransition(async (transition) => {
+    //     const moduleWasWrote = transition.context.foundDependencies[transition.context.processedModuleCount];
+    //     const [stage, doing] = Object.entries(transition.value)[0];
+    //     switch (doing) {
+    //     case 'success':
+    //       console.log(`didi output ${transition.context.processedModuleCount} ES Modules`);
+    //
+    //       await devServer({
+    //         verbose: true,
+    //         root: transition.context.constants.MODULE_OUT_ROOT,
+    //         host: '127.0.0.1',
+    //         index: 'index.html',
+    //         port: 8086,
+    //       });
+    //
+    //       break;
+    //     case 'fail':
+    //       console.log(transition.event);
+    //       break;
+    //     default:
+    //       // Follow LibDidiMachine whilst writing es modules sequentially
+    //       if (moduleWasWrote?.name && !moduleWasWrote?.isDidiTarget) {
+    //         console.log(chalk `── {white ${stage}:} {green ✔ ${moduleWasWrote?.name}}`);
+    //       } else {
+    //         if (doing === 'ESModule') {
+    //           // skip
+    //         } else {
+    //           console.log(chalk `── {white ${stage}:} {green ✔ ${doing}}`);
+    //         }
+    //       }
+    //       break;
+    //     }
+    //   });
+    // } else {
+    //   console.log('The "path" argument must be of type string. Received no input.');
+    // }
   }
 }
 

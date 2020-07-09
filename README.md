@@ -75,6 +75,14 @@ The result should look a little like this:
 ### Docs
 Coming soon.
 
+## Release
+
+### Distribution using git submodules.
+didi keeps all of its source-code in this repository, and all of its publishable packages in separated repositories. This makes a Typescript project clear of any distributed code.
+To find the releases of each package, simply navigate to the [release](https://github.com/adam-cyclones/didi/tree/master/release) directory, there you will find the user-land facing JavaScript published to npm.
+To ship from source to distribution with ease, each package contains a prepublish script that in nut-shell, builds from source, pushes the package changes to the packages respective repository then publishes that to npm.
+Simply run `yarn publish` in any package or find the shortcut in the root level package.json. 
+
 ## Community
 
 ### Want to help build the future of the web?

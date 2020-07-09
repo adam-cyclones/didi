@@ -1,5 +1,6 @@
 {
   "name": "@didi-js/lib-didi",
+  "main": "./dist/lib-didi.js",
   "version": "0.1.0",
   "description": "lib-didi is the backend to interface with clients. this is the transpiler for JavaScript and Typescript, transforming CommonJS modules into distinct ES Modules.",
   "repository": "https://github.com/adam-cyclones/didi",
@@ -17,5 +18,9 @@
   "devDependencies": {
     "typedoc": "^0.17.8",
     "@types/node": "^14.0.13"
+  },
+  "scripts": {
+    "build": "./node_modules/typescript/bin/tsc -p ./src && cp ./package.json ../../release/didi-lib && rm -rf ../../release/didi-lib/dist && mv -f ../../release/didi-lib/src ../../release/didi-lib/dist",
+    "prepublish": "yarn build"
   }
 }
