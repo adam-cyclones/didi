@@ -20,10 +20,10 @@ Frontend and deno developers will find didi useful.
 - didi ships with an embedded custom TypeScript compiler.
 - When successful, TSC converts all found JavaScript and Typescript in CommonJS modules to distinct ES Modules under a single `es_modules` directory.
 - A complete starter project for the browser can be generated or for deno just the `es_modules` directory.
-- didi strives to generate minimal glue-code but as of today browsers that don't support import-maps will need the es_modules_polyfill (default), The positive side effect is that didi enables support for ES Modules in aging browsers, that includes dynamic import calls!
-- A dev-server is provided to test your sources during build, then finally serve a development environment.
-- A dev-browser (headless browser). is used to prune all deps that where not actually used during the build step, a cache will be kept afterwards, keeping build times down.
-- Everything should just work from then on. - but if it doesn't, PR's and issues welcome.
+- didi strives to generate minimal glue-code, but as of today, browsers that don't support import-maps will need the es_modules_polyfill (default), The positive side effect is that didi enables support for ES Modules in aging browsers, that includes dynamic import calls!
+- A dev-server is provided to test your sources during the build, then finally serve a development environment.
+- A dev-browser (headless browser) is used to prune all deps that were not actually used during the build step. A cache will be kept afterward, keeping build times down.
+- Everything should work from then on. - but if it doesn't, PR's and issues welcome.
 
 ### Experimental ahoy
 We are very excited to see you again, didi is still experimental but functional, PR's welcome!
@@ -35,7 +35,7 @@ cd ../path/to/didi
 yarn install
 ```
 didi is split into packages so that we can work on what we need to.
-Every didi package has the same scripts to `build`, simply run `yarn build-all`
+Every didi package has the same scripts to `build`, run `yarn build-all`
 
 Here are all the build commands if you wish you build just one package
 ```json
@@ -45,13 +45,13 @@ Here are all the build commands if you wish you build just one package
     "build-devserver": "yarn --cwd ./packages/didi-devserver build"
 }
 ```
-At the moment, `didi-cli-client` is the main way to interact with the software, You should start here, by building the cli
+At the moment, `didi-cli-client` is the primary way to interact with the software. You should start here, by building the cli
 lib-didi will also be built and should result in a single binary under the `release` folder, this is the binary we will be
 shipping. The plan is to create an npm and denoland package should be created to distribute the binary as well.
 
 ## Usage
 (please note, the instructions are unlikely to work, soon to be overhauled, see issue #23)
-Currently the only way to use didi is to build from source as per the above, you would then do something like this
+Currently, the only way to use didi is to build from source as per the above. You would then do something like this
 ```sh
 ./packages/didi-cli-client/release/didi ~/path/to/example-project
 ```
@@ -65,12 +65,12 @@ The result should look a little like this:
 | File / Directory       |                                                                                                                     |
 |------------------------|---------------------------------------------------------------------------------------------------------------------|
 | target                 | didi output directory                                                                                               |
-| es2015                 | we target es2015 unless a new specification lands in the future                                                     |
-| debug / release        | debug is unoptimised and faster to build, release will optimise output for production                               |
+| es2015                 | we target es2015 unless new specification land in the future                                                     |
+| debug / release        | debug is unoptimized and faster to build, release will optimize output for production                               |
 | es_modules             | This is where all your transpiled es_modules can be found, `es_modules/package/{semver}/main.mjs`                               |
 | index.mjs              | This will contain your project and imports based on the specified main of targeted projects package.json            |
-| index.html             | The starting point of a didi frontend project, didi writes some gluecode to allow a didi project to function        |
-| es-module-shims.min.js | Until importmaps are supported didi uses this polyfill by default but it can be turned off for bleeding edge testing |
+| index.html             | The starting point of a didi frontend project, didi writes some glue code to allow a didi project to function        |
+| es-module-shims.min.js | Until importmaps are supported didi uses this polyfill by default but it can be turned off for bleeding-edge testing |
 | didi.importmap         | Used resolve your ES Modules with base specifiers and remain compatible with (ex) CommonJS (node resolution)        |
 
 ### Docs
@@ -79,9 +79,9 @@ Coming soon.
 ## Release
 
 ### Distribution using git submodules.
-didi keeps all of its source-code in this repository, and all of its publishable packages in separated repositories. This makes a Typescript project clear of any distributed code.
-To find the releases of each package, simply navigate to the [release](https://github.com/adam-cyclones/didi/tree/master/release) directory, there you will find the user-land facing JavaScript published to npm.
-To ship from source to distribution with ease, each package contains a prepublish script that in nut-shell, builds from source, pushes the package changes to the packages respective repository then publishes that to npm.
+didi keeps all of its source-code in this repository and all of its publishable packages in separated repositories. This makes a Typescript project clear of any distributed code.
+To find each package's releases, simply navigate to the [release](https://github.com/adam-cyclones/didi/tree/master/release) directory, there you will find the user-land facing JavaScript published to npm.
+To ship from source to distribution with ease, each package contains a prepublish script that, in nut-shell, builds from source, pushes the package changes to the packages respective repository, then publishes that to npm.
 Simply run `yarn publish` in any package or find the shortcut in the root level package.json. 
 
 ## Community
@@ -89,11 +89,11 @@ Simply run `yarn publish` in any package or find the shortcut in the root level 
 ### Want to help build the future of the web?
 There is a growing [list or tasks](https://github.com/adam-cyclones/didi/issues) as didi heads for 1.0.0. Team didi:
 - [Adam Crockett](https://dev.to/adam_cyclones)
-    > "We need your help, lets break away from bundlers, support didi"
+    > "We need your help, let's break away from bundlers, support didi"
 - Do you want to join team didi or maybe leave us a star?
 
 ### Community action 
-We want to build a collaborative open source community for didi, here are the actions the community decided so far.
+We want to build a collaborative open source community for didi; here are the actions the community decided so far.
 - [Vote: choose the name for didi, (formally unpack)](https://dev.to/adam_cyclones/name-this-software-opinion-needed-40m8)
 - [Vote: choose the logo for didi](https://dev.to/adam_cyclones/didi-help-me-choose-a-logo-3mo4)
 - [Chat with Deno - Can we be dinosaurs too?](https://github.com/denoland/deno/issues/6625)
