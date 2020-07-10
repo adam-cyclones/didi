@@ -50,6 +50,7 @@ lib-didi will also be built and should result in a single binary under the `rele
 shipping. The plan is to create an npm and denoland package should be created to distribute the binary as well.
 
 ## Usage
+(please note, the instructions are unlikely to work, soon to be overhauled, see issue #23)
 Currently the only way to use didi is to build from source as per the above, you would then do something like this
 ```sh
 ./packages/didi-cli-client/release/didi ~/path/to/example-project
