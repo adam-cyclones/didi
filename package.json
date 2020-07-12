@@ -3,6 +3,12 @@
   "description": "A transpiler for JavaScript and Typescript, transforming CommonJS modules into distinct ES Modules.",
   "private": true,
   "license": "MIT",
+  "config": {
+    "scripts": {
+      "publishRestrictions": "node ./packages/didi-devops/scripts/master-only-release.js",
+      "versionByPath": "node packages/didi-devops/scripts/version-get-by-path.js"
+    }
+  },
   "scripts": {
     "preinstall": "git config core.hooksPath packages/didi-devops/hooks",
     "publish-readme": "git add ./README.md && git add ./docs && git commit -m 'update readme' && git push",
@@ -10,9 +16,9 @@
     "build-cli-client": "yarn --cwd ./packages/didi-cli-client build",
     "build-devserver": "yarn --cwd ./packages/didi-devserver build",
     "build-lib-didi": "yarn --cwd ./packages/didi-lib build",
-    "publish-cli-client": "yarn --cwd ./packages/didi-cli-client publish $(node didi-devops/version-bump-by-label.js)",
-    "publish-devserver": "yarn --cwd ./packages/didi-devserver publish $(node didi-devops/version-bump-by-label.js)",
-    "publish-lib-didi": "yarn --cwd ./packages/didi-lib publish $(node didi-devops/version-bump-by-label.js)"
+    "publish-cli-client": "$npm_package_config_scripts_publishRestrictions && yarn --cwd ./packages/didi-cli-client publish $($npm_package_config_scripts_versionByPath ./packages/didi-cli-client)",
+    "publish-devserver": "$npm_package_config_scripts_publishRestrictions && yarn --cwd ./packages/didi-devserver publish $($npm_package_config_scripts_versionByPath ./packages/didi-devserver)",
+    "publish-lib-didi": "$npm_package_config_scripts_publishRestrictions && yarn --cwd ./packages/didi-lib publish $($npm_package_config_scripts_versionByPath ./packages/didi-lib)"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.6.0",
