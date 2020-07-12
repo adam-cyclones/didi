@@ -1,7 +1,7 @@
 {
   "name": "@didi-js/didi-devserver",
   "main": "./dist/didi-devserver.js",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A tiny devserver used for development and internally",
   "author": "Adam Crockett",
   "license": "MIT",
@@ -19,7 +19,7 @@
   },
   "scripts": {
     "build": "./node_modules/typescript/bin/tsc -p ./src && node ../didi-devops/scripts/rewrite-dist-package-json.js didi-devserver/package.json && rm -rf ../../release/didi-devserver/dist && mv -f ../../release/didi-devserver/src ../../release/didi-devserver/dist",
-    "bump": "yarn version $(node ../didi-devops/scripts/version-bump-by-label.js)",
-    "prepublish": "node ../didi-devops/scripts/master-only-release.js && yarn build"
+    "bump": "yarn version $(node didi-devops/scripts/version-bump-by-label.js)",
+    "prepublishOnly": "yarn build"
   }
 }

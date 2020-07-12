@@ -24,6 +24,6 @@
   "scripts": {
     "build": "./node_modules/typescript/bin/tsc -p ./src && cp ./package.json ../../release/didi-cli-client && rm -rf ../../release/didi-cli-client/dist && mv -f ../../release/didi-cli-client/src ../../release/didi-cli-client/dist",
     "bump": "yarn version $(node ../didi-devops/scripts/version-bump-by-label.js)",
-    "prepublish": "node ../didi-devops/scripts/master-only-release.js && yarn build"
+    "prepublishOnly": "yarn build"
   }
 }
