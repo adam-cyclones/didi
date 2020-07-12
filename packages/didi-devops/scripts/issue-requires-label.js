@@ -27,7 +27,7 @@ const mapUpdateType = (labelName) => {
   }).filter(Boolean);
 
   if (updateTypes.length) {
-    // write the seemver update type for yarn version {type} - file should be generated on checkout hook.
+    // write the semver update type for yarn version {type} - file should be generated on checkout hook.
     writeFile(resolve(process.cwd(), 'release', '.version-bump-type.json'), JSON.stringify(updateTypes), 'utf8');
   } else {
     throw new Error(`Issues cannot be checked out without a label: #${issueID} with either a 'bug' or 'enhancement' of 'structural enhancement' label. checkout has been canceled.`);
