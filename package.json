@@ -4,14 +4,15 @@
   "private": true,
   "license": "MIT",
   "scripts": {
+    "preinstall": "git config core.hooksPath packages/didi-devops/hooks",
     "publish-readme": "git add ./README.md && git add ./docs && git commit -m 'update readme' && git push",
     "build-all": "yarn build-lib-didi && yarn build-devserver && yarn build-cli-client",
     "build-cli-client": "yarn --cwd ./packages/didi-cli-client build",
     "build-devserver": "yarn --cwd ./packages/didi-devserver build",
     "build-lib-didi": "yarn --cwd ./packages/didi-lib build",
-    "publish-cli-client": "yarn --cwd ./packages/didi-cli-client publish",
-    "publish-devserver": "yarn --cwd ./packages/didi-devserver publish",
-    "publish-lib-didi": "yarn --cwd ./packages/didi-lib publish"
+    "publish-cli-client": "yarn --cwd ./packages/didi-cli-client publish $(node didi-devops/version-bump-by-label.js)",
+    "publish-devserver": "yarn --cwd ./packages/didi-devserver publish $(node didi-devops/version-bump-by-label.js)",
+    "publish-lib-didi": "yarn --cwd ./packages/didi-lib publish $(node didi-devops/version-bump-by-label.js)"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.6.0",
@@ -20,5 +21,5 @@
     "node-fetch": "^2.6.0"
   },
   "homepage": "https://github.com/adam-cyclones/didi",
-  "version": "0.2.0"
+  "version": "0.0.0"
 }
