@@ -21,6 +21,7 @@
   },
   "scripts": {
     "build": "./node_modules/typescript/bin/tsc -p ./src && cp ./package.json ../../release/didi-lib && rm -rf ../../release/didi-lib/dist && mv -f ../../release/didi-lib/src ../../release/didi-lib/dist",
-    "prepublish": "yarn build"
+    "bump": "yarn version $(node ../didi-devops/scripts/version-bump-by-label.js)",
+    "prepublish": "node ../didi-devops/scripts/master-only-release.js && yarn build"
   }
 }
