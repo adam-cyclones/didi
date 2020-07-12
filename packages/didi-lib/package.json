@@ -20,7 +20,8 @@
     "@types/node": "^14.0.13"
   },
   "scripts": {
-    "build": "./node_modules/typescript/bin/tsc -p ./src && cp ./package.json ../../release/didi-lib && rm -rf ../../release/didi-lib/dist && mv -f ../../release/didi-lib/src ../../release/didi-lib/dist",
-    "prepublish": "yarn build"
+    "build": "./node_modules/typescript/bin/tsc -p ./src && node ../didi-devops/scripts/rewrite-dist-package-json.js didi-lib/package.json && rm -rf ../../release/didi-lib/dist && mv -f ../../release/didi-lib/src ../../release/didi-lib/dist",
+    "bump": "yarn version $(node ../didi-devops/scripts/version-bump-by-label.js)",
+    "prepublishOnly": "yarn build && cd ../../release/didi-lib && git checkout master && git add . && git commit -m 'automated release commit'"
   }
 }
