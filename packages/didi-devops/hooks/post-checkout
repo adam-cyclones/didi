@@ -1,2 +1,2 @@
 #!/bin/sh
-node ../scripts/issue-requires-label.js
+node packages/didi-devops/scripts/issue-requires-label.js
