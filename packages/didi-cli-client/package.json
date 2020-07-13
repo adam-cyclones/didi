@@ -10,15 +10,14 @@
   "dependencies": {
     "commander-ts": "^0.1.5",
     "reflect-metadata": "^0.1.13",
-    "@types/chalk": "^2.2.0",
-    "chalk": "^4.1.0"
+    "chalk": "^4.1.0",
+    "@didi-js/lib-didi": "0.1.0-rc1",
+    "@didi-js/didi-devserver": "0.1.1-rc"
   },
   "devDependencies": {
     "nexe": "^3.3.3",
-    "typescript": "^3.9.5"
-  },
-  "peerDependencies": {
-    "@didi-js/lib-didi": "0.1.0"
+    "typescript": "^3.9.5",
+    "ts-node": "^8.10.2"
   },
   "publishConfig": {
     "access": "public",
