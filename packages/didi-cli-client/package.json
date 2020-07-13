@@ -17,6 +17,9 @@
     "nexe": "^3.3.3",
     "typescript": "^3.9.5"
   },
+  "peerDependencies": {
+    "@didi-js/lib-didi": "0.1.0"
+  },
   "publishConfig": {
     "access": "public",
     "tag": "next"
