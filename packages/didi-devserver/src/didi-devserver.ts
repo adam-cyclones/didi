@@ -1,6 +1,6 @@
 import Koa from 'koa';
 import mime from 'mime-types';
-import minimist from 'minimist';
+import minimist, { ParsedArgs } from 'minimist';
 import { IDevServerArgs } from './types/types';
 import { extname, resolve } from 'path';
 import { parse } from 'url';
@@ -8,7 +8,7 @@ import { promises } from 'fs';
 
 const { readFile } = promises;
 
-const argv: Partial<IDevServerArgs> = minimist(process.argv.slice(2));
+const argv: Partial<IDevServerArgs & ParsedArgs> = minimist(process.argv.slice(2));
 
 const readWithMime = async (ctx: Koa.Context, path: string) => {
   ctx.body = await readFile(path, 'utf8');
