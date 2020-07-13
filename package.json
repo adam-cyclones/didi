@@ -11,6 +11,7 @@
   },
   "scripts": {
     "preinstall": "git config core.hooksPath packages/didi-devops/hooks",
+    "publish-docs": "typedoc --out ./docs/generated ./packages/",
     "publish-readme": "git add ./README.md && git add ./docs && git commit -m 'update readme' && git push",
     "build-all": "yarn build-lib-didi && yarn build-devserver && yarn build-cli-client",
     "build-cli-client": "yarn --cwd ./packages/didi-cli-client build",
@@ -24,7 +25,11 @@
     "@typescript-eslint/eslint-plugin": "^3.6.0",
     "@typescript-eslint/parser": "^3.6.0",
     "eslint": "^7.4.0",
-    "node-fetch": "^2.6.0"
+    "lerna": "^3.22.1",
+    "node-fetch": "^2.6.0",
+    "typedoc": "^0.16.11",
+    "typedoc-plugin-lerna-packages": "^0.3.0",
+    "typescript": "^3.9.6"
   },
   "homepage": "https://github.com/adam-cyclones/didi",
   "version": "0.0.0"
