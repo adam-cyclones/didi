@@ -17,9 +17,9 @@
     "build-cli-client": "yarn --cwd ./packages/didi-cli-client build",
     "build-devserver": "yarn --cwd ./packages/didi-devserver build",
     "build-lib-didi": "yarn --cwd ./packages/didi-lib build",
-    "publish-cli-client": "$npm_package_config_scripts_publishRestrictions && yarn --cwd ./packages/didi-cli-client publish $($npm_package_config_scripts_versionByPath ./packages/didi-cli-client)",
-    "publish-devserver": "$npm_package_config_scripts_publishRestrictions && yarn --cwd ./packages/didi-devserver publish $($npm_package_config_scripts_versionByPath ./packages/didi-devserver)",
-    "publish-lib-didi": "$npm_package_config_scripts_publishRestrictions && yarn --cwd ./packages/didi-lib publish $($npm_package_config_scripts_versionByPath ./packages/didi-lib)"
+    "publish-cli-client": "$npm_package_config_scripts_publishRestrictions && yarn --cwd ./release/didi-cli-client publish --new-version $($npm_package_config_scripts_versionByPath ./release/didi-cli-client)",
+    "publish-devserver": "$npm_package_config_scripts_publishRestrictions && yarn --cwd ./release/didi-devserver publish --new-version $($npm_package_config_scripts_versionByPath ./release/didi-devserver)",
+    "publish-lib-didi": "$npm_package_config_scripts_publishRestrictions && yarn --cwd ./release/didi-lib publish --new-version $($npm_package_config_scripts_versionByPath ./release/didi-lib)"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.6.0",
