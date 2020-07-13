@@ -74,7 +74,7 @@ The result should look a little like this:
 | didi.importmap         | Used resolve your ES Modules with base specifiers and remain compatible with (ex) CommonJS (node resolution)        |
 
 ### Docs
-Coming soon.
+You can find generated documentation [available here](https://github.com/adam-cyclones/didi/tree/master/docs/generated). 
 
 ## Release
 
