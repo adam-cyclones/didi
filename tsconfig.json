@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+     "target": "es6",
+     "module": "commonjs",
+     "outDir": "../../../release",
+     "rootDir": "../../",
+     "removeComments": true,
+     "strict": true,
+     "noImplicitAny": false,
+     "moduleResolution": "node",
+     "baseUrl": ".",
+     "paths": {},
+     "esModuleInterop": true,
+     "experimentalDecorators": true,
+     "skipLibCheck": true,
+     "forceConsistentCasingInFileNames": true
+  }
+}
