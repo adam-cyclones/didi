@@ -10,7 +10,7 @@
     }
   },
   "scripts": {
-    "preinstall": "git config core.hooksPath packages/didi-devops/hooks",
+    "preinstall": "git config core.hooksPath packages/didi-devops/hooks && chmod +x packages/didi-devops/hooks/post-checkout",
     "publish-docs": "typedoc --out ./docs/generated ./packages/",
     "publish-readme": "git add ./README.md && git add ./docs && git commit -m 'update readme' && git push",
     "build-all": "yarn build-lib-didi && yarn build-devserver && yarn build-cli-client",
