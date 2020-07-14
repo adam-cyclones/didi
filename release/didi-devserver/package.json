@@ -1,7 +1,7 @@
 {
   "name": "@didi-js/didi-devserver",
   "main": "./dist/mod.js",
-  "version": "0.1.2-rc1",
+  "version": "0.1.3-rc1",
   "description": "A tiny devserver used for development and internally",
   "author": "Adam Crockett",
   "license": "MIT",
