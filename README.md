@@ -12,8 +12,32 @@
   </p>
 </p>
 
+
 ## Who uses didi?
 Frontend and deno developers will find didi useful.
+
+## Try it out.
+**didi is not ready for production** but you can still try it out.
+```
+npm install -g @didi-js/didi-cli
+yarn global add @didi-js/didi-cli
+```
+Create a project an entry file, some installed node_modules and then require the browser dependency into your entry file using the base specifier. 
+``` js
+const colorThief = require('colorThief'); // base specifier example, no paths needed
+```
+
+run `didi path/to/example-project`
+
+The result should have output a new target directory within this example-project and also a server should have started on `http://localhost:8086`.
+You may see some console errors in the browser, this is normal for this stage.
+
+You may also notce that your import looks like this:
+``` js
+import colorThief from "color-thief"; // still no path? what wizardry is this!
+```
+didi also enables node.js style resolution with native ES Modules but right now didi genereates an importmap and optional ES Modules polyfil, even browsers that dont support ES Modules will support them in a didi project.
+
 
 ### How it works:
 - You can use the CLI to run didi.
