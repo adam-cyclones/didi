@@ -12,7 +12,7 @@
     "reflect-metadata": "^0.1.13",
     "chalk": "^4.1.0",
     "@didi-js/lib-didi": "0.1.0-rc1",
-    "@didi-js/didi-devserver": "0.1.1-rc"
+    "@didi-js/didi-devserver": "0.1.1-rc1"
   },
   "devDependencies": {
     "nexe": "^3.3.3",
@@ -26,6 +26,6 @@
   "scripts": {
     "build": "./node_modules/typescript/bin/tsc -p ./src && node ../didi-devops/scripts/rewrite-dist-package-json.js didi-cli-client/package.json && rm -rf ../../release/didi-cli-client/dist && mv -f ../../release/didi-cli-client/src ../../release/didi-cli-client/dist",
     "bump": "yarn version $(node ../didi-devops/scripts/version-bump-by-label.js)",
-    "prepublishOnly": "yarn build"
+    "prepublishOnly": "yarn build && git add ../../release/didi-cli-client && git status | grep release/didi-cli-client && git commit -m 'automated release commit' && git push"
   }
 }

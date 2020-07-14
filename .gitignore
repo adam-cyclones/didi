@@ -109,7 +109,4 @@ dist
 # didi developer
 target
 example-project
-packages/didi-cli-client/release
-packages/didi-devserver/release
 release/.version-bump-type.json
-release/didi-*
