@@ -1,11 +1,10 @@
 {
   "name": "@didi-js/didi-cli",
   "bin": {
-    "didi": "./dist/didi-cli.js"
+    "didi": "./dist/mod.js"
   },
-  "version": "0.1.0-rc1",
+  "version": "0.1.1-rc1",
   "description": "CLI client for lib-didi. didi is a bundleless bundler for JavaScript and Typescript that transpiles common.js modules into distinct ESmodules.",
-  "main": "index.js",
   "author": "Adam Crockett",
   "license": "MIT",
   "private": false,
