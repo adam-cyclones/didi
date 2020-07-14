@@ -1,0 +1,24 @@
+{
+  "name": "@didi-js/didi-cli",
+  "bin": { "didi": "./dist/didi-cli.js" },
+  "version": "0.0.1",
+  "description": "CLI client for lib-didi. didi is a bundleless bundler for JavaScript and Typescript that transpiles common.js modules into distinct ESmodules.",
+  "main": "index.js",
+  "author": "Adam Crockett",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "commander-ts": "^0.1.5",
+    "reflect-metadata": "^0.1.13",
+    "@types/chalk": "^2.2.0",
+    "chalk": "^4.1.0"
+  },
+  "devDependencies": {
+    "nexe": "^3.3.3",
+    "typescript": "^3.9.5"
+  },
+  "scripts": {
+    "build": "./node_modules/typescript/bin/tsc -p ./src && cp ./package.json ../../release/didi-cli-client && rm -rf ../../release/didi-cli-client/dist && mv -f ../../release/didi-cli-client/src ../../release/didi-cli-client/dist",
+    "prepublish": "yarn build"
+  }
+}
