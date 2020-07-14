@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/adam-cyclones/didi-devserver
+	branch = master
+	commit = 632e0869a0ad1bb5e4fa4271983b55d9af8d189d
+	parent = 4b77a1c82821bd89e3f6bc0acf352772f2299404
+	method = merge
+	cmdver = 0.4.1
