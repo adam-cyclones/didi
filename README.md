@@ -53,34 +53,29 @@ didi also enables node.js style resolution with native ES Modules but right now 
 - Everything should work from then on. - but if it doesn't, PR's and issues welcome.
 
 ### Experimental ahoy
-We are very excited to see you again, didi is still experimental but functional, PR's welcome!
+didi is still experimental but functional, PR's welcome!
 
 ## Building for development
-To commit code to didi
+To contribute to didi first lets get a copy of this repository setup.
 ``` sh
-cd ../path/to/didi
+git clone https://github.com/adam-cyclones/didi.git
+
+cd didi
+
 yarn install
 ```
-didi is split into packages so that we can work on what we need to.
-Every didi package has the same scripts to `build`, run `yarn build-all`
+didi is split into packages, every didi package has the same package.json scripts and a similar layout.
+At the root of this repository you can see a [package.json](https://github.com/adam-cyclones/didi/blob/957ccbba1b4b5c85e1af4ea3d59e0c0950b88a06/package.json#L12) file which run most of the scripts available to each package from a single location.
 
-Here are all the build commands if you wish you build just one package
-```json
-{
-    "build-all": "yarn build-devserver && yarn build-cli-client",
-    "build-cli-client": "yarn --cwd ./packages/didi-cli-client build",
-    "build-devserver": "yarn --cwd ./packages/didi-devserver build"
-}
-```
-At the moment, `didi-cli-client` is the primary way to interact with the software. You should start here, by building the cli
-lib-didi will also be built and should result in a single binary under the `release` folder, this is the binary we will be
-shipping. The plan is to create an npm and denoland package should be created to distribute the binary as well.
+For now, `didi-cli-client` is the only way to interact with didi, so you should start here.
 
-## Usage
-(please note, the instructions are unlikely to work, soon to be overhauled, see issue #23)
-Currently, the only way to use didi is to build from source as per the above. You would then do something like this
-```sh
-./packages/didi-cli-client/release/didi ~/path/to/example-project
+``` sh
+cd packages/didi-cli-client
+// installs @didi-js/didi-lib and @didi-js/didi-devserver 
+yarn install
+
+// runs ts-node-dev allowing you to make changes in watch mode without building
+yarn dev
 ```
 
 ## What to expect
@@ -89,10 +84,11 @@ The result should look a little like this:
     <img src="docs/screenshots/didi-out.png" alt="didi wrote some boilerplate, and ES Modules from CommonJS">
 </div>
 
+
 | File / Directory       |                                                                                                                     |
 |------------------------|---------------------------------------------------------------------------------------------------------------------|
 | target                 | didi output directory                                                                                               |
-| es2015                 | we target es2015 unless new specification land in the future                                                     |
+| es2015                 | we target es2015 until new specification land in the future                                                     |
 | debug / release        | debug is unoptimized and faster to build, release will optimize output for production                               |
 | es_modules             | This is where all your transpiled es_modules can be found, `es_modules/package/{semver}/main.mjs`                               |
 | index.mjs              | This will contain your project and imports based on the specified main of targeted projects package.json            |
@@ -116,6 +112,7 @@ We want to build a collaborative open source community for didi; here are the ac
 - [Vote: choose the name for didi, (formally unpack)](https://dev.to/adam_cyclones/name-this-software-opinion-needed-40m8)
 - [Vote: choose the logo for didi](https://dev.to/adam_cyclones/didi-help-me-choose-a-logo-3mo4)
 - [Chat with Deno - Can we be dinosaurs too?](https://github.com/denoland/deno/issues/6625)
+- [AWS features didi in Open Source News!](https://www.linkedin.com/feed/update/urn:li:activity:6688362989487239169/)
 
 #### Meta
 - Logo by Adam Crockett
