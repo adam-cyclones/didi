@@ -1,9 +1,0 @@
-[submodule "release/didi-cli-client"]
-	path = release/didi-cli-client
-	url = https://github.com/adam-cyclones/didi-cli-client/tree/master
-[submodule "release/didi-lib"]
-	path = release/didi-lib
-	url = https://github.com/adam-cyclones/didi-lib.git
-[submodule "release/didi-devserver"]
-	path = release/didi-devserver
-	url = https://github.com/adam-cyclones/didi-devserver.git

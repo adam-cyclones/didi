@@ -1,0 +1,23 @@
+{
+  "name": "@didi-js/lib-didi",
+  "main": "./dist/lib-didi.js",
+  "version": "0.1.1-rc1",
+  "description": "lib-didi is the backend to interface with clients. this is the transpiler for JavaScript and Typescript, transforming CommonJS modules into distinct ES Modules.",
+  "repository": "https://github.com/adam-cyclones/didi",
+  "author": "Adam Crockett",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "@wessberg/cjs-to-esm-transformer": "^0.0.22",
+    "typescript": "^3.9.5",
+    "es-module-shims": "^0.4.7",
+    "mkdirp": "^1.0.4",
+    "resolve-tree": "^0.1.14",
+    "xstate": "^4.11.0"
+  },
+  "homepage": "https://github.com/adam-cyclones/didi",
+  "publishConfig": {
+    "access": "public",
+    "tag": "next"
+  }
+}

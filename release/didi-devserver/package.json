@@ -1,0 +1,20 @@
+{
+  "name": "@didi-js/didi-devserver",
+  "main": "./dist/mod.js",
+  "version": "0.1.3-rc1",
+  "description": "A tiny devserver used for development and internally",
+  "author": "Adam Crockett",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "koa": "^2.13.0",
+    "mime-types": "^2.1.27",
+    "minimist": "^1.2.5"
+  },
+  "repository": "https://github.com/adam-cyclones/didi",
+  "homepage": "https://github.com/adam-cyclones/didi",
+  "publishConfig": {
+    "access": "public",
+    "tag": "next"
+  }
+}
