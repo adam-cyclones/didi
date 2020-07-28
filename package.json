@@ -23,7 +23,8 @@
     "docusaurus": "^2.0.0-alpha.59",
     "@typescript-eslint/eslint-plugin": "^3.6.0",
     "@typescript-eslint/parser": "^3.6.0",
-    "eslint": "^7.4.0"
+    "eslint": "^7.4.0",
+    "chalk": "^4.1.0"
   },
   "scripts": {
     "add": "$npm_package_config_ops",
