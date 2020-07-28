@@ -2,7 +2,7 @@
 <!--suppress HtmlDeprecatedAttribute, CheckImageSize -->
 <p align="center">
   <a href="https://github.com/adam-cyclones/didi">
-    <img src="docs/assets/didi-logo.png" alt="didi the dino is a pterodactyl logo" width="120" height="120">
+    <img src="packages/website-didi/static/img/didi-logo.png" alt="didi the dino is a pterodactyl logo" width="120" height="120">
   </a>
 
   <h3 align="center">didi</h3>
@@ -64,26 +64,38 @@ cd didi
 
 yarn install
 ```
-didi is split into packages, every didi package has the same package.json scripts and a similar layout.
-At the root of this repository you can see a [package.json](https://github.com/adam-cyclones/didi/blob/957ccbba1b4b5c85e1af4ea3d59e0c0950b88a06/package.json#L12) file which run most of the scripts available to each package from a single location.
+didi is split into packages, there are two types of package, clients and libs, clients consume libs, for example `client-didi-cli` consumes `lib-didi` and others.
+Thanks to iterative work to improve developer experience, didi is controlled by didi-ops, everything is very simple to work with, run any of the package.json scripts (technically its just one script!) and then follow the prompts.
+See our [reasons for didi-ops](https://dev.to/adam_cyclones/didi-docs-website-and-other-highlights-3m9d) which explains a little more about what, and why didi-ops.
+At the root of this repository you can see a [package.json](https://github.com/adam-cyclones/didi/blob/957ccbba1b4b5c85e1af4ea3d59e0c0950b88a06/package.json#L12) file which controls all present and future packages didi-ops generates.
 
-For now, `didi-cli-client` is the only way to interact with didi, so you should start here.
+For now, `client-didi-cli` is the only way to interact with didi, so you should start here.
 
 ``` sh
-cd packages/didi-cli-client
-// installs @didi-js/didi-lib and @didi-js/didi-devserver 
-yarn install
+# didi-ops shadows the default `link` script - read about didi-ops scripts bellow.
+# run:
 
-// runs ts-node-dev allowing you to make changes in watch mode without building
-yarn dev
+yarn link
+
+# Answer the prompts.
 ```
 
-## What to expect
-The result should look a little like this:
-<div>
-    <img src="docs/screenshots/didi-out.png" alt="didi wrote some boilerplate, and ES Modules from CommonJS">
-</div>
+`client-didi-cli` is hooked up to develop against an example project - we don't include this project yet but soon will, so you won't have to make one yourself. The example project is detailed by the `Try it out` section.
 
+| Script         |                                                                                                                     |
+|----------------|---------------------------------------------------------------------------------------------------------------------|
+| add            | didi output directory                                                                                               |
+| remove         | we target es2015 unless a new specification lands in the future                                                     |
+| build          | debug is unoptimised and faster to build, release will optimise output for production                               |
+| dev            | This is where all your transpiled es_modules can be found, /package/{semver}/main.mjs                               |
+| version        | This will contain your project and imports based on the specified main of targeted projects package.json            |
+| publish        | The starting point of a didi frontend project, didi writes some gluecode to allow a didi project to function        |
+| link           | Until importmaps are supported did uses this polyfill by default but it can be turned off for bleeding edge testing |
+| didi.importmap | Used resolve your ES Modules with base specifiers and remain compatible with (ex) CommonJS (node resolution)        |
+
+---
+## What to expect
+The result of compilation should look a bit like this:
 
 | File / Directory       |                                                                                                                     |
 |------------------------|---------------------------------------------------------------------------------------------------------------------|
@@ -97,7 +109,8 @@ The result should look a little like this:
 | didi.importmap         | Used resolve your ES Modules with base specifiers and remain compatible with (ex) CommonJS (node resolution)        |
 
 ### Docs
-You can find generated documentation [available here](https://htmlpreview.github.io/?https://github.com/adam-cyclones/didi/blob/master/docs/generated/index.html).
+`packages/website-didi` is a Docusaurus project in progress, we already have full support for the API Reference generated from Typedoc comments, for this reason we strive to provide high standards of doc comment coverage in everything we make.
+http://didi.land will be the domain, we need as much support with the website as we do with the project itself, if your interested, reach out.
 
 ## Community
 
