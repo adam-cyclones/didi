@@ -17,7 +17,7 @@
 Frontend and deno developers will find didi useful.
 
 ## Try it out.
-**didi is not ready for production** but you can still try it out.
+**didi is not ready for production** however you can still take didi for a spin!
 ``` sh
 npm install -g @didi-js/didi-cli
 
@@ -35,7 +35,7 @@ run `didi path/to/example-project`
 The result should have output a new target directory within this example-project and also a server should have started on `http://localhost:8086`.
 You may see some console errors in the browser, this is normal for this stage.
 
-You may also notce that your import looks like this:
+You may also notice that your import looks like this:
 ``` js
 import colorThief from "color-thief"; // still no path? what wizardry is this!
 ```
@@ -52,8 +52,7 @@ didi also enables node.js style resolution with native ES Modules but right now 
 - A dev-browser (headless browser) is used to prune all deps that were not actually used during the build step. A cache will be kept afterward, keeping build times down.
 - Everything should work from then on. - but if it doesn't, PR's and issues welcome.
 
-### Experimental ahoy
-didi is still experimental but functional, PR's welcome!
+---
 
 ## Building for development
 To contribute to didi first lets get a copy of this repository setup.
