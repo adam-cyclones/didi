@@ -1,0 +1,1 @@
+A generated didi package called {{name}}.

@@ -1,0 +1,13 @@
+{
+  "name": "@didi-js/lib-didi-dev-server",
+  "main": "./src/mod.js",
+  "license": "MIT",
+  "description": "A tiny dev-server used for enduser development and within the build process itself",
+  "author": "Adam Crockett",
+  "private": false,
+  "repository": "https://github.com/adam-cyclones/didi",
+  "publishConfig": {
+    "access": "public",
+    "tag": "next"
+  }
+}

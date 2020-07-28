@@ -1,0 +1,52 @@
+[
+    {
+        "version": {
+            "major": 0,
+            "minor": 1,
+            "patch": 0
+        },
+        "type": "lib",
+        "name": "didi",
+        "prefixedName": "lib-didi",
+        "scopeName": "@didi-js/lib-didi",
+        "sourcePath": "/Users/adam.crockett/Code/typescript/test-dry/packages/lib-didi",
+        "releasePath": "/Users/adam.crockett/Code/typescript/test-dry/releases/lib-didi",
+        "docsPath": "/Users/adam.crockett/Code/typescript/test-dry/packages/website-didi/docs/api/packages/lib-didi",
+        "description": "lib-didi is the backend to interface with clients. this is the transpiler for JavaScript and Typescript, transforming CommonJS modules into distinct ES Modules."
+    },
+    {
+        "version": {
+            "major": 0,
+            "minor": 1,
+            "patch": 0
+        },
+        "type": "lib",
+        "name": "didi-dev-server",
+        "prefixedName": "lib-didi-dev-server",
+        "scopeName": "@didi-js/lib-didi-dev-server",
+        "sourcePath": "/Users/adam.crockett/Code/typescript/test-dry/packages/lib-didi-dev-server",
+        "releasePath": "/Users/adam.crockett/Code/typescript/test-dry/releases/lib-didi-dev-server",
+        "docsPath": "/Users/adam.crockett/Code/typescript/test-dry/packages/website-didi/docs/api/packages/lib-didi-dev-server",
+        "description": "A tiny dev-server used for enduser development and within the build process itself"
+    },
+    {
+        "version": {
+            "major": 0,
+            "minor": 1,
+            "patch": 0
+        },
+        "type": "client",
+        "name": "didi-cli",
+        "prefixedName": "client-didi-cli",
+        "scopeName": "@didi-js/client-didi-cli",
+        "sourcePath": "/Users/adam.crockett/Code/typescript/test-dry/packages/client-didi-cli",
+        "releasePath": "/Users/adam.crockett/Code/typescript/test-dry/releases/client-didi-cli",
+        "docsPath": "/Users/adam.crockett/Code/typescript/test-dry/packages/website-didi/docs/api/packages/client-didi-cli",
+        "description": "A CLI client for lib-didi. didi is a bundle-less runtime for JavaScript and Typescript, it transpiles common.js modules into distinct ESmodules.",
+        "args": "./example-project",
+        "linkedLibs": [
+            "@didi-js/lib-didi",
+            "@didi-js/lib-didi-dev-server"
+        ]
+    }
+]

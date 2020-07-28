@@ -1,0 +1,13 @@
+{
+  "name": "@didi-js/lib-didi",
+  "main": "./src/mod.js",
+  "license": "MIT",
+  "description": "lib-didi is the backend to interface with clients. this is the transpiler for JavaScript and Typescript, transforming CommonJS modules into distinct ES Modules.",
+  "author": "Adam Crockett",
+  "private": false,
+  "repository": "https://github.com/adam-cyclones/didi",
+  "publishConfig": {
+    "access": "public",
+    "tag": "next"
+  }
+}
