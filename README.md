@@ -116,4 +116,4 @@ We want to build a collaborative open source community for didi; here are the ac
 
 #### Meta
 - Logo by Adam Crockett
-- दीदी - didi means sister, we are sister a too deno in the sense that we share similar goals, remove CommonJs packages and (for us, CommonJs bundles) from the equation and make packeges widely available in a "Webby" way that conforms to EcmaScript standards.
+- दीदी - didi means sister, we are sister a too deno in the sense that we share similar goals, remove CommonJs packages and (for us, CommonJs bundles) from the equation and make packages widely available in a "Webby" way that conforms to EcmaScript standards.
