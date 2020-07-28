@@ -10,6 +10,7 @@ const rmfr = require('rmfr');
 const { execSync, spawn } = require('child_process');
 const prompts = require('prompts');
 const getUpdateType = require('./helpers/issue-requires-label');
+const { red, green, cyan } = require('chalk');
 
 const scirpts = {
   /**
@@ -242,6 +243,12 @@ const scirpts = {
     const manifestFileName = './pkg-manifest.json';
     const currentManifestContent = JSON.parse(await readFile(resolve(__dirname, manifestFileName)));
 
+    for (const pkg of currentManifestContent) {
+      await copyFile(resolve(pkg.sourcePath, 'package.json'), resolve(pkg.releasePath, 'package.json'), 2);
+      await copyFile(resolve(pkg.sourcePath, 'README.md'), resolve(pkg.releasePath, 'README.md'), 2);
+      await copyFile(resolve(pkg.sourcePath, 'LICENSE'), resolve(pkg.releasePath, 'LICENSE'), 2);
+    }
+
     try {
       const std = execSync(`npx tsc -b ${currentManifestContent.map((pkg) => resolve(pkg.sourcePath, 'src', 'tsconfig.json')).join(' ')}`, {encoding: 'utf8'});
       console.log(std);
@@ -452,8 +459,77 @@ const scirpts = {
   /**
    * @description relink selected lib packages to a client
    * */
-  ['link']() {
-    console.log('TODO: not implemented.');
+  async link() {
+    const manifestFileName = './pkg-manifest.json';
+    const currentManifestContent = JSON.parse(await readFile(resolve(__dirname, manifestFileName)));
+    const allLibs = currentManifestContent.filter(pkg => pkg.type === 'lib');
+    const clientPackages = currentManifestContent
+      .filter(pkg => pkg.type === 'client')
+      .map(pkg => ({ title: pkg.scopeName, value: pkg  }));
+
+    const { client } = await prompts([
+      {
+        type: 'select',
+        name: 'client',
+        message: 'Select clients to link with dependant libs',
+        choices: clientPackages,
+      }
+    ]);
+
+    const prevLinks = client.linkedLibs;
+    const { libsToChange } = await prompts([
+      {
+        type: 'multiselect',
+        name: 'libsToChange',
+        message: `Which libs should be linked to '${client.scopeName}'`,
+        choices: allLibs
+          .map(pkg => ({
+            title: pkg.scopeName,
+            value: pkg.scopeName,
+            selected: client.linkedLibs.includes(pkg.scopeName)
+          })),
+      }
+    ]);
+
+    const diffTree = {
+      '--': [],
+      '++': [],
+      '==': []
+    }
+    // additions
+    for (const changes of libsToChange) {
+      if (!prevLinks.includes(changes)) {
+        console.log(`${green('++')} ${changes} ${green('link')}`)
+        diffTree['++'].push(changes);
+        console.log(`yarn --cwd ${client.releasePath} link ${changes}`)
+        const std = execSync(`yarn --cwd ${client.releasePath} link ${changes}`);
+        console.log(`\n${std}`);
+      } else {
+        // no change
+        console.log(`${cyan('==')} ${changes} ${cyan('no changes.')}`);
+        diffTree['=='].push(changes);
+      }
+    }
+    // deletions
+    for (const prev of prevLinks) {
+      if (!libsToChange.includes(prev)) {
+        console.log(`${red('--')} ${prev} ${red('unlink')}`);
+        diffTree['--'].push(prev);
+        console.log(`yarn --cwd ${client.releasePath} unlink ${prev}`);
+        const std = execSync(`yarn --cwd ${client.releasePath} unlink ${prev}`);
+        console.log(`\n${std}`);
+      }
+    }
+
+    const currentPlusAdditions = [...diffTree['=='], ...diffTree['++']];
+    const removeFromArray = (original, remove) => original.filter(value => !remove.includes(value));
+    // persist
+    for (const pkg of currentManifestContent) {
+      if (pkg.name === client.name) {
+        pkg.linkedLibs = removeFromArray(currentPlusAdditions, diffTree['--']);
+      }
+    }
+    await writeFile(resolve(__dirname, manifestFileName), JSON.stringify(currentManifestContent, null, 4), 'utf8');
   },
   /**
    * @description run tests for a package
