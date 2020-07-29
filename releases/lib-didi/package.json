@@ -9,5 +9,16 @@
   "publishConfig": {
     "access": "public",
     "tag": "next"
+  },
+  "dependencies": {
+    "@wessberg/cjs-to-esm-transformer": "^0.0.22",
+    "typescript": "^3.9.5",
+    "es-module-shims": "^0.4.7",
+    "mkdirp": "^1.0.4",
+    "resolve-tree": "^0.1.14",
+    "xstate": "^4.11.0"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.13"
   }
 }

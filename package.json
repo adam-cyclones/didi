@@ -35,7 +35,8 @@
     "publish": "$npm_package_config_ops",
     "link": "$npm_package_config_ops",
     "test": "$npm_package_config_ops",
-    "docs": "$npm_package_config_ops"
+    "docs": "$npm_package_config_ops",
+    "install-all": "$npm_package_config_ops"
   },
   "homepage": "http://didi.land"
 }

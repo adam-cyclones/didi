@@ -6,6 +6,11 @@
   "author": "Adam Crockett",
   "private": false,
   "repository": "https://github.com/adam-cyclones/didi",
+  "dependencies": {
+    "commander-ts": "^0.1.5",
+    "reflect-metadata": "^0.1.13",
+    "chalk": "^4.1.0"
+  },
   "publishConfig": {
     "access": "public",
     "tag": "next"
