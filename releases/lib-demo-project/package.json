@@ -1,0 +1,14 @@
+{
+  "name": "@didi-js/lib-demo-project",
+  "main": "./src/index.js",
+  "license": "MIT",
+  "description": "to test and develop didi, didi requires a project, to make things a little easier for developers and future changes didi ships with this project, it is not something you will wish to install if you are using didi to create your own project.",
+  "author": "Adam Crockett",
+  "private": false,
+  "repository": "https://github.com/adam-cyclones/didi",
+  "version": "0.1.0",
+  "publishConfig": {
+    "access": "public",
+    "tag": "next"
+  }
+}

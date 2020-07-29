@@ -43,10 +43,26 @@
         "releasePath": "/Users/adam.crockett/Code/typescript/didi/releases/client-didi-cli",
         "docsPath": "/Users/adam.crockett/Code/typescript/didi/packages/website-didi/docs/api/packages/client-didi-cli",
         "description": "A CLI client for lib-didi. didi is a bundle-less runtime for JavaScript and Typescript, it transpiles common.js modules into distinct ESmodules.",
-        "args": "./example-project",
+        "args": "./releases/lib-demo-project",
         "linkedLibs": [
             "@didi-js/lib-didi",
             "@didi-js/lib-didi-dev-server"
         ]
+    },
+    {
+        "version": {
+            "major": 0,
+            "minor": 1,
+            "patch": 0
+        },
+        "type": "lib",
+        "name": "demo-project",
+        "prefixedName": "lib-demo-project",
+        "scopeName": "@didi-js/lib-demo-project",
+        "sourcePath": "/Users/adam.crockett/Code/typescript/didi/packages/lib-demo-project",
+        "releasePath": "/Users/adam.crockett/Code/typescript/didi/releases/lib-demo-project",
+        "docsPath": "/Users/adam.crockett/Code/typescript/didi/packages/website-didi/docs/api/packages/lib-demo-project",
+        "description": "to test and develop didi, didi requires a project, to make things a little easier for developers and future changes didi ships with this project, it is not something you will wish to install if you are using didi to create your own project.",
+        "didi-ops-flags": ["ignore-build", "ignore-link", "ignore-remove"]
     }
 ]

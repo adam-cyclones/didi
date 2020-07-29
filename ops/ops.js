@@ -103,7 +103,9 @@ const scirpts = {
           type: 'multiselect',
           name: 'didi lib dependencies',
           message: 'Pick which didi libraries this client should link install.',
-          choices: currentManifestContent.filter(pkg => pkg.type === 'lib').map(pkg => ({title: pkg.name, value: pkg.scopeName})),
+          choices: currentManifestContent
+            .filter(pkg => !(pkg['didi-ops-flags'] && pkg['didi-ops-flags'].includes('ignore-link')))
+            .filter(pkg => pkg.type === 'lib').map(pkg => ({title: pkg.name, value: pkg.scopeName})),
         }
       ]);
       context.linkedLibs = linkedLibs['didi lib dependencies'] || [];
@@ -158,7 +160,9 @@ const scirpts = {
     const manifestFileName = './pkg-manifest.json';
     const currentManifestContent = require(manifestFileName);
     const choice = await cliSelect({
-      values: currentManifestContent.map(pkg => pkg.name)
+      values: currentManifestContent
+        .filter(pkg => !(pkg['didi-ops-flags'] && pkg['didi-ops-flags'].includes('ignore-remove')))
+        .map(pkg => pkg.name)
     });
     const manifestRecord = currentManifestContent.find(pkg => pkg.name === choice.value);
     try {
@@ -250,7 +254,9 @@ const scirpts = {
     }
 
     try {
-      const std = execSync(`npx tsc -b ${currentManifestContent.map((pkg) => resolve(pkg.sourcePath, 'src', 'tsconfig.json')).join(' ')}`, {encoding: 'utf8'});
+      const std = execSync(`npx tsc -b ${currentManifestContent
+        .filter(pkg => !(pkg['didi-ops-flags'] && pkg['didi-ops-flags'].includes('ignore-build')))
+        .map((pkg) => resolve(pkg.sourcePath, 'src', 'tsconfig.json')).join(' ')}`, {encoding: 'utf8'});
       console.log(std);
     } catch (e) {
       // compile errors
@@ -462,7 +468,9 @@ const scirpts = {
   async link() {
     const manifestFileName = './pkg-manifest.json';
     const currentManifestContent = JSON.parse(await readFile(resolve(__dirname, manifestFileName)));
-    const allLibs = currentManifestContent.filter(pkg => pkg.type === 'lib');
+    const allLibs = currentManifestContent
+      .filter(pkg => !(pkg['didi-ops-flags'] && pkg['didi-ops-flags'].includes('ignore-link')))
+      .filter(pkg => pkg.type === 'lib');
     const clientPackages = currentManifestContent
       .filter(pkg => pkg.type === 'client')
       .map(pkg => ({ title: pkg.scopeName, value: pkg  }));
