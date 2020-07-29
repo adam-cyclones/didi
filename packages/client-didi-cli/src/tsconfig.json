@@ -1,0 +1,6 @@
+{
+  "extends": "../../../ops/template/bases/tsconfig.json",
+  "files": [
+    "./mod.ts"
+  ]
+}

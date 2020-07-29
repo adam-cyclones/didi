@@ -1,0 +1,14 @@
+{
+  "name": "{{name}}",
+  "main": "./src/mod.js",
+  "license": "MIT",
+  "description": "{{description}}",
+  "author": "Adam Crockett",
+  "private": false,
+  "repository": "https://github.com/adam-cyclones/didi",
+  "version": "0.1.0",
+  "publishConfig": {
+    "access": "public",
+    "tag": "next"
+  }
+}

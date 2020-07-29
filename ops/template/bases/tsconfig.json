@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "outDir": "../../../releases",
+    "rootDir": "../../../packages",
+    "removeComments": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "moduleResolution": "node",
+    "baseUrl": "../../../packages",
+    "declaration": true,
+    "paths": {
+      "@didi-js/*": [
+        "*/src/mod.ts"
+      ]
+    },
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}

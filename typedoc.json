@@ -1,7 +1,0 @@
-{
-  "mode": "modules",
-  "out": "docs/generated",
-  "exclude": ["**/node_modules/**", "**/*.spec.ts"],
-  "name": "didi",
-  "excludePrivate": false
-}

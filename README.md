@@ -2,7 +2,7 @@
 <!--suppress HtmlDeprecatedAttribute, CheckImageSize -->
 <p align="center">
   <a href="https://github.com/adam-cyclones/didi">
-    <img src="docs/assets/didi-logo.png" alt="didi the dino is a pterodactyl logo" width="120" height="120">
+    <img src="packages/website-didi/static/img/didi-logo.png" alt="didi the dino is a pterodactyl logo" width="120" height="120">
   </a>
 
   <h3 align="center">didi</h3>
@@ -17,7 +17,7 @@
 Frontend and deno developers will find didi useful.
 
 ## Try it out.
-**didi is not ready for production** but you can still try it out.
+**didi is not ready for production** however you can still take didi for a spin!
 ``` sh
 npm install -g @didi-js/didi-cli
 
@@ -35,7 +35,7 @@ run `didi path/to/example-project`
 The result should have output a new target directory within this example-project and also a server should have started on `http://localhost:8086`.
 You may see some console errors in the browser, this is normal for this stage.
 
-You may also notce that your import looks like this:
+You may also notice that your import looks like this:
 ``` js
 import colorThief from "color-thief"; // still no path? what wizardry is this!
 ```
@@ -52,8 +52,7 @@ didi also enables node.js style resolution with native ES Modules but right now 
 - A dev-browser (headless browser) is used to prune all deps that were not actually used during the build step. A cache will be kept afterward, keeping build times down.
 - Everything should work from then on. - but if it doesn't, PR's and issues welcome.
 
-### Experimental ahoy
-didi is still experimental but functional, PR's welcome!
+---
 
 ## Building for development
 To contribute to didi first lets get a copy of this repository setup.
@@ -64,26 +63,37 @@ cd didi
 
 yarn install
 ```
-didi is split into packages, every didi package has the same package.json scripts and a similar layout.
-At the root of this repository you can see a [package.json](https://github.com/adam-cyclones/didi/blob/957ccbba1b4b5c85e1af4ea3d59e0c0950b88a06/package.json#L12) file which run most of the scripts available to each package from a single location.
+didi is split into packages, there are two types of package, clients and libs, clients consume libs, for example `client-didi-cli` consumes `lib-didi` and others.
+Thanks to iterative work to improve developer experience, didi is controlled by didi-ops, everything is very simple to work with, run any of the package.json scripts (technically its just one script!) and then follow the prompts.
+See our [reasons for didi-ops](https://dev.to/adam_cyclones/didi-docs-website-and-other-highlights-3m9d) which explains a little more about what, and why didi-ops.
+At the root of this repository you can see a [package.json](https://github.com/adam-cyclones/didi/blob/504caec136fcf9cfcfc96af513ad4a4a0afd0f5c/package.json#L28) file which controls all present and future packages didi-ops generates.
 
-For now, `didi-cli-client` is the only way to interact with didi, so you should start here.
+For now, `client-didi-cli` is the only way to interact with didi, so you should start here.
 
 ``` sh
-cd packages/didi-cli-client
-// installs @didi-js/didi-lib and @didi-js/didi-devserver 
-yarn install
+# didi-ops shadows the default `link` script - read about didi-ops scripts bellow.
+# run:
 
-// runs ts-node-dev allowing you to make changes in watch mode without building
-yarn dev
+yarn link
+
+# Answer the prompts.
 ```
 
-## What to expect
-The result should look a little like this:
-<div>
-    <img src="docs/screenshots/didi-out.png" alt="didi wrote some boilerplate, and ES Modules from CommonJS">
-</div>
+`client-didi-cli` is hooked up to develop against an example project - we don't include this project yet but soon will, so you won't have to make one yourself. The example project is detailed by the `Try it out` section.
 
+| Script  | (All scripts prompt for answers).                                                                                        |
+|---------|----------------------------------------------------------------------------------------------------------------------|
+| add     | Generates a new package with sources, docs and release folders then builds this package, its a good starting point.  |
+| remove  | Removes all traces of a didi package, however published packages remain published.                                   |
+| build   | Builds clients and thier didi-lib dependencies.                                                                      |
+| dev     | The same as build however it also watches for changes and executes the client based on args provided buy `add`       |
+| version | Select packages to bump versions, either manually or by the github labels associated with this branch and issue.     |
+| publish | Select packages to publish, dry-run is available.                                                                    |
+| link    | links libs together, or edits existing links then installs all node_modules for didi packages in source and release. |
+| test    | run all tests including those generated but `add`                                                                    |
+---
+## What to expect
+The result of compilation should look a bit like this:
 
 | File / Directory       |                                                                                                                     |
 |------------------------|---------------------------------------------------------------------------------------------------------------------|
@@ -97,7 +107,8 @@ The result should look a little like this:
 | didi.importmap         | Used resolve your ES Modules with base specifiers and remain compatible with (ex) CommonJS (node resolution)        |
 
 ### Docs
-You can find generated documentation [available here](https://htmlpreview.github.io/?https://github.com/adam-cyclones/didi/blob/master/docs/generated/index.html).
+`packages/website-didi` is a Docusaurus project in progress, we already have full support for the API Reference generated from Typedoc comments, for this reason we strive to provide high standards of doc comment coverage in everything we make.
+http://didi.land will be the domain, we need as much support with the website as we do with the project itself, if your interested, reach out.
 
 ## Community
 

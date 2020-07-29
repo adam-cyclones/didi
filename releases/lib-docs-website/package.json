@@ -1,0 +1,13 @@
+{
+  "name": "@didi-js/lib-docs-website",
+  "main": "./src/mod.js",
+  "license": "MIT",
+  "description": "The docs website",
+  "author": "Adam Crockett",
+  "private": false,
+  "repository": "https://github.com/adam-cyclones/didi",
+  "publishConfig": {
+    "access": "public",
+    "tag": "next"
+  }
+}
