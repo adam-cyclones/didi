@@ -165,7 +165,7 @@ const scirpts = {
       // globally unlink this library
       if (manifestRecord.type === 'lib') {
         try {
-          const result = execSync(`yarn --cwd ${manifestRecord.sourcePath} unlink`, {encoding: 'utf8'});
+          const result = execSync(`yarn --cwd ${manifestRecord.releasePath} unlink`, {encoding: 'utf8'});
           console.log('\n'+result);
         } catch (e) {
           console.log(e);
@@ -605,6 +605,18 @@ const scirpts = {
         await selectPackages();
         spawn('yarn', ['--cwd', 'packages/website-didi', 'start'], {stdio: 'inherit'});
         return;
+    }
+  },
+  /**
+   * @description install sources and releases
+   * */
+  'install-all'() {
+    spawn(`yarn`, ['install', '--didi-ops'], {stdio: 'inherit'});
+    const manifestFileName = './pkg-manifest.json';
+    const currentManifestContent = require(manifestFileName);
+    for (const pkg of currentManifestContent) {
+      spawn('yarn', ['--cwd', pkg.sourcePath, 'install'], {stdio: 'inherit'});
+      spawn('yarn', ['--cwd', pkg.releasePath, 'install'], {stdio: 'inherit'});
     }
   }
 }
