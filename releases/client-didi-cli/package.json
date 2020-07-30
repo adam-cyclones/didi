@@ -7,12 +7,13 @@
   "private": false,
   "repository": "https://github.com/adam-cyclones/didi",
   "dependencies": {
+    "chalk": "^4.1.0",
     "commander-ts": "^0.1.5",
-    "reflect-metadata": "^0.1.13",
-    "chalk": "^4.1.0"
+    "reflect-metadata": "^0.1.13"
   },
   "publishConfig": {
     "access": "public",
     "tag": "next"
-  }
+  },
+  "version": "0.1.1"
 }
