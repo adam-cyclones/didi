@@ -240,17 +240,22 @@ const scirpts = {
     tsc.on('first_success', firstPostCompile);
     tsc.on('success', postCompile);
 
-    tsc.start( '-b', ...currentManifestContent.map((pkg) => resolve(pkg.sourcePath, 'src', 'tsconfig.json')));
+    tsc.start( '-b', ...currentManifestContent
+      .filter(pkg => !(pkg['didi-ops-flags'] && pkg['didi-ops-flags'].includes('ignore-build')))
+      .map((pkg) => resolve(pkg.sourcePath, 'src', 'tsconfig.json'))
+    );
   },
-  async ['build']() {
+  async build() {
     console.log('building...')
     const manifestFileName = './pkg-manifest.json';
     const currentManifestContent = JSON.parse(await readFile(resolve(__dirname, manifestFileName)));
 
     for (const pkg of currentManifestContent) {
-      await copyFile(resolve(pkg.sourcePath, 'package.json'), resolve(pkg.releasePath, 'package.json'), 2);
-      await copyFile(resolve(pkg.sourcePath, 'README.md'), resolve(pkg.releasePath, 'README.md'), 2);
-      await copyFile(resolve(pkg.sourcePath, 'LICENSE'), resolve(pkg.releasePath, 'LICENSE'), 2);
+      if (!(pkg['didi-ops-flags'] && pkg['didi-ops-flags'].includes('ignore-build'))) {
+        await copyFile(resolve(pkg.sourcePath, 'package.json'), resolve(pkg.releasePath, 'package.json'), 2);
+        await copyFile(resolve(pkg.sourcePath, 'README.md'), resolve(pkg.releasePath, 'README.md'), 2);
+        await copyFile(resolve(pkg.sourcePath, 'LICENSE'), resolve(pkg.releasePath, 'LICENSE'), 2);
+      }
     }
 
     try {

@@ -79,7 +79,7 @@ yarn link
 # Answer the prompts.
 ```
 
-`client-didi-cli` is hooked up to develop against an example project - we don't include this project yet but soon will, so you won't have to make one yourself. The example project is detailed by the `Try it out` section.
+`client-didi-cli` is hooked up to develop against a demo project as seen in packages/lib-demo-project
 
 | Script  | (All scripts prompt for answers).                                                                                        |
 |---------|----------------------------------------------------------------------------------------------------------------------|

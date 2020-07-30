@@ -107,6 +107,7 @@ dist
 .idea
 
 # didi developer
-target
-example-project
+releases/lib-demo-project/node_modules
+releases/lib-demo-project/target
+releases/lib-demo-project/yarn.lock
 release/.version-bump-type.json
