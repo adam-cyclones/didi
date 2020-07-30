@@ -69,17 +69,25 @@ See our [reasons for didi-ops](https://dev.to/adam_cyclones/didi-docs-website-an
 At the root of this repository you can see a [package.json](https://github.com/adam-cyclones/didi/blob/504caec136fcf9cfcfc96af513ad4a4a0afd0f5c/package.json#L28) file which controls all present and future packages didi-ops generates.
 
 For now, `client-didi-cli` is the only way to interact with didi, so you should start here.
-
+The first time you setup for development you should do the following:
 ``` sh
 # didi-ops shadows the default `link` script - read about didi-ops scripts bellow.
 # run:
 
 yarn link
 
-# Answer the prompts.
+# Answer the prompts by selecting:
+
+`client-didi-cli`
+# Then select all available packages
+
+yarn install-all
+
+yarn dev
 ```
 
-`client-didi-cli` is hooked up to develop against a demo project as seen in packages/lib-demo-project
+`client-didi-cli` points to the `releases/lib-demo-project` for development purposes, this allows tsc and node to compile and run on any changed packages. The example project is detailed by the `Try it out` section.
+
 
 | Script  | (All scripts prompt for answers).                                                                                        |
 |---------|----------------------------------------------------------------------------------------------------------------------|
