@@ -19,11 +19,11 @@ Frontend and deno developers will find didi useful.
 ## Try it out.
 **didi is not ready for production** however you can still take didi for a spin!
 ``` sh
-npm install -g @didi-js/didi-cli
+npm install -g @didi-js/client-didi-cli
 
 # or
 
-yarn global add @didi-js/didi-cli
+yarn global add @didi-js/client-didi-cli
 ```
 Create a project an entry file, some installed node_modules and then require the browser dependency into your entry file using the base specifier. 
 ``` js

@@ -18,7 +18,7 @@
         "version": {
             "major": 0,
             "minor": 1,
-            "patch": 0
+            "patch": 3
         },
         "type": "lib",
         "name": "didi-dev-server",
@@ -33,7 +33,7 @@
         "version": {
             "major": 0,
             "minor": 1,
-            "patch": 0
+            "patch": 5
         },
         "type": "client",
         "name": "didi-cli",
@@ -63,6 +63,10 @@
         "releasePath": "/Users/adam.crockett/Code/typescript/didi/releases/lib-demo-project",
         "docsPath": "/Users/adam.crockett/Code/typescript/didi/packages/website-didi/docs/api/packages/lib-demo-project",
         "description": "to test and develop didi, didi requires a project, to make things a little easier for developers and future changes didi ships with this project, it is not something you will wish to install if you are using didi to create your own project.",
-        "didi-ops-flags": ["ignore-build", "ignore-link", "ignore-remove"]
+        "didi-ops-flags": [
+            "ignore-build",
+            "ignore-link",
+            "ignore-remove"
+        ]
     }
 ]

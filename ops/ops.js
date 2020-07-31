@@ -337,8 +337,8 @@ const scirpts = {
           },
         ]);
         console.log(`Bumping ${selectedPkg} version to ${major}.${minor}.${patch} from ${oldMajor}.${oldMinor}.${oldPatch}`);
-        execSync(`yarn --cwd ${manifestRecord.sourcePath} version --new-version ${major}.${minor}.${patch}`);
-        execSync(`yarn --cwd ${manifestRecord.releasePath} version --new-version ${major}.${minor}.${patch}`);
+        execSync(`yarn --cwd ${manifestRecord.sourcePath} version --no-git-tag-version --new-version ${major}.${minor}.${patch}`);
+        execSync(`yarn --cwd ${manifestRecord.releasePath} version --no-git-tag-version --new-version ${major}.${minor}.${patch}`);
         // persist
         currentManifestContent.find(pkg => pkg.scopeName === selectedPkg).version = {
           major,
@@ -426,11 +426,20 @@ const scirpts = {
       }
       // clients publish last
       if (pkg.linkedLibs && pkg.linkedLibs.length) {
-        const linkedLibs = pkg.linkedLibs.map(name => orderedPublishQueue.find(pkg => pkg.name === name));
+        let linkedLibs = pkg.linkedLibs.map(name => {
+          const findLibInQueue = orderedPublishQueue.find(pkg => pkg.name === name);
+          if (findLibInQueue) {
+            return findLibInQueue
+          } else {
+            // used for writing lib dependency versions to clients on publish
+            return  currentManifestContent.find(pkg => pkg.scopeName === name)
+          }
+        });
+
         pkg.linkedLibs = {};
         // ensure dependent libs are published
         for (const lib of linkedLibs) {
-          pkg.linkedLibs[lib.name] = lib.version;
+          pkg.linkedLibs[lib.name.includes('@didi-js') ? lib.name : lib.scopeName] = lib.version instanceof String ? lib.version : `${lib.version.major}.${lib.version.minor}.${lib.version.patch}`;
         }
         // update release package.json
         if (!pkg.packageJSON.dependencies) {
@@ -453,6 +462,7 @@ const scirpts = {
           console.log('Something looks off? Go fix it and try again.')
           process.exit(0);
         } else {
+          console.log('pkg.releasePath')
           await writeFile(resolve(pkg.releasePath, 'package.json'), JSON.stringify(pkg.packageJSON, null, 4), 'utf8');
           try {
             execSync(`yarn --cwd ${pkg.releasePath} publish --new-version ${pkg.version}`, {encoding: 'utf8'});

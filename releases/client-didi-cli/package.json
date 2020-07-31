@@ -1,19 +1,24 @@
 {
-  "name": "@didi-js/client-didi-cli",
-  "main": "./src/mod.js",
-  "license": "MIT",
-  "description": "A CLI client for lib-didi. didi is a bundle-less runtime for JavaScript and Typescript, it transpiles common.js modules into distinct ESmodules.",
-  "author": "Adam Crockett",
-  "private": false,
-  "repository": "https://github.com/adam-cyclones/didi",
-  "dependencies": {
-    "chalk": "^4.1.0",
-    "commander-ts": "^0.1.5",
-    "reflect-metadata": "^0.1.13"
-  },
-  "publishConfig": {
-    "access": "public",
-    "tag": "next"
-  },
-  "version": "0.1.1"
+    "name": "@didi-js/client-didi-cli",
+    "main": "./src/mod.js",
+    "bin": {
+        "didi": "src/mod.js"
+    },
+    "license": "MIT",
+    "description": "A CLI client for lib-didi. didi is a bundle-less runtime for JavaScript and Typescript, it transpiles common.js modules into distinct ESmodules.",
+    "author": "Adam Crockett",
+    "private": false,
+    "repository": "https://github.com/adam-cyclones/didi",
+    "dependencies": {
+        "@didi-js/lib-didi": "0.1.0",
+        "@didi-js/lib-didi-dev-server": "0.1.3",
+        "chalk": "^4.1.0",
+        "commander-ts": "^0.1.5",
+        "reflect-metadata": "^0.1.13"
+    },
+    "publishConfig": {
+        "access": "public",
+        "tag": "next"
+    },
+    "version": "0.1.5"
 }

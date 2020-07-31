@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /**
  * @file @didi-js/client-didi-cli module main file.
  * @description A CLI client for lib-didi. didi is a bundle-less runtime for JavaScript and Typescript, it transpiles common.js modules into distinct ESmodules.

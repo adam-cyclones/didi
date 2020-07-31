@@ -1,6 +1,9 @@
 {
   "name": "@didi-js/client-didi-cli",
   "main": "./src/mod.js",
+  "bin": {
+    "didi": "src/mod.js"
+  },
   "license": "MIT",
   "description": "A CLI client for lib-didi. didi is a bundle-less runtime for JavaScript and Typescript, it transpiles common.js modules into distinct ESmodules.",
   "author": "Adam Crockett",
@@ -15,5 +18,5 @@
     "access": "public",
     "tag": "next"
   },
-  "version": "0.1.1"
+  "version": "0.1.5"
 }
