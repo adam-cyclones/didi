@@ -89,12 +89,12 @@ yarn dev
 `client-didi-cli` points to the `releases/lib-demo-project` for development purposes, this allows tsc and node to compile and run on any changed packages. The example project is detailed by the `Try it out` section.
 
 
-| Script  | (All scripts prompt for answers).                                                                                        |
+| Script  | (All scripts prompt for answers).                                                                                    |
 |---------|----------------------------------------------------------------------------------------------------------------------|
 | add     | Generates a new package with sources, docs and release folders then builds this package, its a good starting point.  |
 | remove  | Removes all traces of a didi package, however published packages remain published.                                   |
 | build   | Builds clients and thier didi-lib dependencies.                                                                      |
-| dev     | The same as build however it also watches for changes and executes the client based on args provided buy `add`       |
+| dev     | The same as build however it also watches for changes and executes the client based on args provided by `add`        |
 | version | Select packages to bump versions, either manually or by the github labels associated with this branch and issue.     |
 | publish | Select packages to publish, dry-run is available.                                                                    |
 | link    | links libs together, or edits existing links then installs all node_modules for didi packages in source and release. |
@@ -106,9 +106,9 @@ The result of compilation should look a bit like this:
 | File / Directory       |                                                                                                                     |
 |------------------------|---------------------------------------------------------------------------------------------------------------------|
 | target                 | didi output directory                                                                                               |
-| es2015                 | we target es2015 until new specification land in the future                                                     |
+| es2015                 | we target es2015 until new specification land in the future                                                         |
 | debug / release        | debug is unoptimized and faster to build, release will optimize output for production                               |
-| es_modules             | This is where all your transpiled es_modules can be found, `es_modules/package/{semver}/main.mjs`                               |
+| es_modules             | This is where all your transpiled es_modules can be found, `es_modules/package/{semver}/main.mjs`                   |
 | index.mjs              | This will contain your project and imports based on the specified main of targeted projects package.json            |
 | index.html             | The starting point of a didi frontend project, didi writes some glue code to allow a didi project to function        |
 | es-module-shims.min.js | Until importmaps are supported didi uses this polyfill by default but it can be turned off for bleeding-edge testing |
