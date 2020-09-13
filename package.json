@@ -16,7 +16,7 @@
     "docusaurus": "^2.0.0-alpha.59",
     "eslint": "^7.4.0",
     "jest": "^26.1.0",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "prompt-promise": "^1.0.3",
     "prompts": "^2.3.2",
     "rmfr": "^2.0.0",
